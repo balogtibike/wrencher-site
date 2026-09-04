@@ -36,12 +36,10 @@ if (form) {
         body: new FormData(form),
       });
       if (res.ok) {
-        // Hide form, show success message outside the form
+        form.reset();
         form.style.display = 'none';
         const success = document.getElementById('form-success');
-        if (success) {
-          success.style.display = 'block';
-        }
+        if (success) success.style.display = 'block';
       } else {
         btn.disabled = false;
         btn.textContent = 'Send message';
