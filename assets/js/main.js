@@ -7,7 +7,6 @@ if (hamburger && navLinks) {
   hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('open');
   });
-  // Close on link click
   navLinks.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => navLinks.classList.remove('open'));
   });
@@ -18,9 +17,7 @@ document.querySelectorAll('.faq__q').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.closest('.faq__item');
     const isOpen = item.classList.contains('open');
-    // Close all
     document.querySelectorAll('.faq__item').forEach(i => i.classList.remove('open'));
-    // Open clicked if it was closed
     if (!isOpen) item.classList.add('open');
   });
 });
@@ -39,8 +36,12 @@ if (form) {
         body: new FormData(form),
       });
       if (res.ok) {
+        // Hide form, show success message outside the form
         form.style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
+        const success = document.getElementById('form-success');
+        if (success) {
+          success.style.display = 'block';
+        }
       } else {
         btn.disabled = false;
         btn.textContent = 'Send message';
