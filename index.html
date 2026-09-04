@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wrencher — Built for tradespeople</title>
+  <meta name="description" content="Wrencher handles your quotes, jobs, invoices, and mileage so you can focus on the work. One-time purchase. No monthly fees.">
+  <meta property="og:title" content="Wrencher — Built for tradespeople">
+  <meta property="og:description" content="Stop drowning in paperwork. Wrencher handles your quotes, jobs, invoices, and mileage.">
+  <meta property="og:url" content="https://wrencher.app">
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .pain__card-inner{display:flex;align-items:flex-start;gap:16px}
+    .pain__card-icon{flex-shrink:0;width:40px;height:40px}
+    .pain__card-icon img{width:40px;height:40px;opacity:.7}
+    .feat-card__header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+    .feat-card__header img{width:22px;height:22px;opacity:.75;flex-shrink:0}
+    .feat-card__title{margin:0;font-size:17px}
+    .feat-card__list{list-style:none;margin-top:8px}
+    .feat-card__list li{font-size:14px;color:var(--steel);padding:3px 0;display:flex;align-items:flex-start;gap:8px}
+    .feat-card__list li::before{content:"·";color:var(--blue);font-weight:700;flex-shrink:0}
+    .shot{cursor:zoom-in}
+    .lb{display:none;position:fixed;inset:0;z-index:1000;background:rgba(15,23,42,.88);align-items:center;justify-content:center;padding:24px}
+    .lb.open{display:flex}
+    .lb img{max-width:90vw;max-height:88vh;border-radius:10px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+    .lb-close{position:fixed;top:20px;right:24px;background:rgba(255,255,255,.15);border:none;color:white;font-size:28px;width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .lb-close:hover{background:rgba(255,255,255,.25)}
+    .pricing__note{text-align:center;max-width:640px;margin:28px auto 0;font-size:14px;color:var(--steel)}
+    .pricing__note-line2{margin-top:6px}
+    .cta-section__note{margin-top:24px}
+  </style>
+</head>
+<body>
+
+<div class="lb" id="lb" onclick="closeLB()">
+  <button class="lb-close" onclick="closeLB()">×</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__brand"><img src="assets/img/logo.png" alt="Wrencher logo">Wrencher</a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="docs.html">Docs</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__cta">
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary" style="height:40px;padding:0 18px;font-size:14px;">Download free trial</a>
+    </div>
+    <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__content">
+      <span class="hero__tag">Built for tradespeople</span>
+      <h1 class="hero__headline">Quotes, jobs, and invoices — built for tradespeople.</h1>
+      <p class="hero__sub">Stop drowning in paperwork. Wrencher handles your quotes, jobs, invoices, and mileage so you can focus on the work.</p>
+      <div class="hero__ctas">
+        <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary btn-lg">Download free trial</a>
+        <a href="pricing.html" class="btn btn-outline btn-lg">See pricing</a>
+      </div>
+      <p class="hero__note">30 days free · No credit card · Windows 10/11 · Your data stays on your computer</p>
+    </div>
+    <div class="hero__screenshot">
+      <img src="assets/img/invoice_list.png" alt="Wrencher invoice list">
+      <div class="hero__stripe"></div>
+    </div>
+  </div>
+</section>
+
+<div class="stats" style="margin-top:72px;">
+  <div class="container">
+    <div class="stats__inner">
+      <div class="stats__item"><div class="stats__num">30 days</div><div class="stats__label">Free trial, full access</div></div>
+      <div class="stats__item"><div class="stats__num">$0</div><div class="stats__label">Monthly fees — ever</div></div>
+      <div class="stats__item"><div class="stats__num">100%</div><div class="stats__label">Offline — no cloud required</div></div>
+      <div class="stats__item"><div class="stats__num">1 price</div><div class="stats__label">Pay once, own it forever</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="section pain">
+  <div class="container">
+    <span class="section__label">Sound familiar?</span>
+    <h2 class="section__heading">The paperwork problem every tradesperson knows</h2>
+    <div class="pain__grid">
+      <div class="pain__card">
+        <div class="pain__card-inner">
+          <div class="pain__card-icon"><img src="assets/img/phosphor/clipboard-text.svg" alt=""></div>
+          <p class="pain__text">You finish a job at 6pm and spend your evening writing up a quote on a spreadsheet that never quite adds up.</p>
+        </div>
+      </div>
+      <div class="pain__card">
+        <div class="pain__card-inner">
+          <div class="pain__card-icon"><img src="assets/img/phosphor/money-wavy.svg" alt=""></div>
+          <p class="pain__text">A client asks about an invoice from three weeks ago and you have no idea whether they paid or how much is still outstanding.</p>
+        </div>
+      </div>
+      <div class="pain__card">
+        <div class="pain__card-inner">
+          <div class="pain__card-icon"><img src="assets/img/phosphor/wrench.svg" alt=""></div>
+          <p class="pain__text">You do extra work on a job, forget to raise a change order, and end up eating the cost because it was never agreed in writing.</p>
+        </div>
+      </div>
+      <div class="pain__card">
+        <div class="pain__card-inner">
+          <div class="pain__card-icon"><img src="assets/img/phosphor/car.svg" alt=""></div>
+          <p class="pain__text">Your accountant asks for mileage records at tax time and all you have is a vague memory of driving a lot.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section features-overview">
+  <div class="container">
+    <span class="section__label">Everything you need</span>
+    <h2 class="section__heading">One app. Every part of your business.</h2>
+    <p class="section__sub">Wrencher covers the full job cycle — from first enquiry to final payment — without the complexity of tools built for accountants.</p>
+    <div class="features-overview__grid">
+      <div class="feat-card">
+        <div class="feat-card__header"><img src="assets/img/phosphor/folders.svg" alt=""><h3 class="feat-card__title">Jobs &amp; scheduling</h3></div>
+        <ul class="feat-card__list">
+          <li>Track every job from enquiry to complete</li>
+          <li>Week and month calendar views</li>
+          <li>Dashboard alerts for jobs needing attention</li>
+          <li>Photo attachments per job</li>
+          <li>Priority, type, and site address</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card__header"><img src="assets/img/phosphor/file-minus.svg" alt=""><h3 class="feat-card__title">Professional quotes</h3></div>
+        <ul class="feat-card__list">
+          <li>Single quotes or A/B/C multi-option quotes</li>
+          <li>Price book for your standard items</li>
+          <li>PDF with your logo, sent from the app</li>
+          <li>Tax, discount, and deposit support</li>
+          <li>Expiry dates with dashboard alerts</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card__header"><img src="assets/img/phosphor/file-text.svg" alt=""><h3 class="feat-card__title">Invoicing</h3></div>
+        <ul class="feat-card__list">
+          <li>Invoice from accepted quote in one click</li>
+          <li>Blank invoices for quick jobs</li>
+          <li>Recurring invoices — monthly, quarterly, annually</li>
+          <li>Partial payment tracking</li>
+          <li>Overdue alerts and payment reminders</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card__header"><img src="assets/img/phosphor/swap.svg" alt=""><h3 class="feat-card__title">Change orders</h3></div>
+        <ul class="feat-card__list">
+          <li>Raise change orders when scope changes</li>
+          <li>Get approval in writing before doing the work</li>
+          <li>Approved items roll into the invoice automatically</li>
+          <li>Dashboard alert for pending approvals</li>
+          <li>Change order PDF for client sign-off</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card__header"><img src="assets/img/phosphor/car-profile.svg" alt=""><h3 class="feat-card__title">Mileage tracking</h3></div>
+        <ul class="feat-card__list">
+          <li>Log trips and link them to jobs</li>
+          <li>Miles or kilometres at your rate</li>
+          <li>Monthly and annual running totals</li>
+          <li>CSV export for your accountant</li>
+          <li>Nothing missed at tax time</li>
+        </ul>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card__header"><img src="assets/img/phosphor/chart-line-up.svg" alt=""><h3 class="feat-card__title">Reports &amp; dashboard</h3></div>
+        <ul class="feat-card__list">
+          <li>Outstanding invoices and overdue balances</li>
+          <li>Revenue by month at a glance</li>
+          <li>Quote conversion rate</li>
+          <li>Job profitability overview</li>
+          <li>Client revenue rankings</li>
+        </ul>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="features.html" class="btn btn-outline btn-lg">See all features</a>
+    </div>
+  </div>
+</section>
+
+<section class="section screenshots">
+  <div class="container">
+    <span class="section__label">See it in action</span>
+    <h2 class="section__heading">Your whole business, at a glance.</h2>
+    <p class="section__sub">Real screens from Wrencher — no mockups, no marketing fluff. Click any screenshot to enlarge.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+      <div class="shot" onclick="openLB('assets/img/dashboard.png','Wrencher dashboard')">
+        <img src="assets/img/dashboard.png" alt="Wrencher dashboard">
+        <div class="shot__cap">Dashboard — overdue invoices, expiring quotes, jobs needing attention</div>
+      </div>
+      <div class="shot" onclick="openLB('assets/img/multi_quote.png','Multi-option quote')">
+        <img src="assets/img/multi_quote.png" alt="Multi-option quote">
+        <div class="shot__cap">Multi-option quotes — present A/B/C pricing, client picks one</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div class="shot" onclick="openLB('assets/img/weekly_calendar.png','Weekly calendar')">
+        <img src="assets/img/weekly_calendar.png" alt="Week calendar">
+        <div class="shot__cap">Week calendar — see every job, click to reschedule</div>
+      </div>
+      <div class="shot" onclick="openLB('assets/img/pdf_invoice.png','Invoice PDF')">
+        <img src="assets/img/pdf_invoice.png" alt="Invoice PDF">
+        <div class="shot__cap">Professional PDF invoices — your logo, your details</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pricing" id="pricing">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:48px;">
+      <span class="section__label">Pricing</span>
+      <h2>Simple, honest pricing.</h2>
+      <p style="color:var(--steel);font-size:18px;margin:12px auto 0;max-width:52ch;">No subscriptions that sneak up on you. Buy once, use it for as long as you want.</p>
+    </div>
+    <div class="pricing__grid">
+      <div class="price-card">
+        <div class="price-card__name">Free trial</div>
+        <div class="price-card__amount"><span class="price-card__currency">$</span><span class="price-card__num">0</span></div>
+        <div class="price-card__period">30 days, full access</div>
+        <div class="price-card__was">&nbsp;</div>
+        <div class="price-card__divider"></div>
+        <ul class="price-card__features">
+          <li>All features, no restrictions</li>
+          <li>No credit card required</li>
+          <li>Your data stays on your computer</li>
+          <li>Professional PDF quotes &amp; invoices</li>
+          <li class="na">License key to keep using</li>
+        </ul>
+        
+      </div>
+      <div class="price-card price-card--featured">
+        <div class="price-card__badge">Early bird price</div>
+        <div class="price-card__name">Annual</div>
+        <div class="price-card__amount"><span class="price-card__currency">$</span><span class="price-card__num">99</span></div>
+        <div class="price-card__period">per year</div>
+        <div class="price-card__was"><s>$139/year</s> &nbsp;<strong>Save $40</strong></div>
+        <div class="price-card__divider"></div>
+        <ul class="price-card__features">
+          <li>All features included</li>
+          <li>All updates during your plan</li>
+          <li>2 computer activations</li>
+          <li>Email support</li>
+          <li class="na">Lifetime access</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <div class="price-card__name">Lifetime</div>
+        <div class="price-card__amount"><span class="price-card__currency">$</span><span class="price-card__num">299</span></div>
+        <div class="price-card__period">one-time payment</div>
+        <div class="price-card__was"><s>$449</s> &nbsp;<strong>Save $150</strong></div>
+        <div class="price-card__divider"></div>
+        <ul class="price-card__features">
+          <li>All features included</li>
+          <li>All future updates, forever</li>
+          <li>2 computer activations</li>
+          <li>Email support</li>
+          <li>Never pay again</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:32px;border:1px solid var(--rule);border-radius:12px;padding:28px 24px;text-align:center;background:var(--paper);">
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary btn-lg">Download free trial — 30 days free</a>
+      <p style="margin:12px auto 0;font-size:14px;color:var(--steel);">Annual or Lifetime license purchased inside the app &nbsp;·&nbsp; <a href="refund.html">30-day refund guarantee</a></p>
+      <p style="margin:6px auto 0;font-size:13px;color:#94a3b8;">Early bird pricing — returns to $139/$449 after launch period.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section faq">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:48px;"><span class="section__label">FAQ</span><h2>Common questions</h2></div>
+    <div class="faq__list">
+      <div class="faq__item"><button class="faq__q">Is there really a free trial with no credit card?<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq__a">Yes. Download, install, and use Wrencher for 30 days with every feature available. No credit card, no sign-up, no account. When the trial ends, purchase a license inside the app to continue.</div></div>
+      <div class="faq__item"><button class="faq__q">Does it work without internet?<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq__a">Fully offline. Wrencher runs entirely on your computer — no cloud, no sync, no internet required. You only need internet to send emails from within the app.</div></div>
+      <div class="faq__item"><button class="faq__q">Where is my data stored?<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq__a">On your own computer at %APPDATA%\Wrencher\. Nothing is uploaded to any server. You own your data completely and can back it up by copying that file.</div></div>
+      <div class="faq__item"><button class="faq__q">Can I use it on two computers?<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq__a">Each license allows activation on 2 computers. If you need to transfer your license, contact us at hello@wrencher.app and we'll sort it out.</div></div>
+      <div class="faq__item"><button class="faq__q">What is your refund policy?<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq__a">Full refund within 30 days of purchase, no questions asked. Email hello@wrencher.app with your order details.</div></div>
+      <div class="faq__item"><button class="faq__q">Will Windows show a security warning?<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq__a">Windows SmartScreen may show a warning because Wrencher is new software. It is completely safe. Click "More info" then "Run anyway" to proceed.</div></div>
+      <div class="faq__item"><button class="faq__q">Does it work on Mac or Linux?<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq__a">Currently Windows only (Windows 10 and 11). Mac and Linux versions are planned for a future release.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Start your free 30-day trial today.</h2>
+    <p>No credit card. No account. No cloud. Just install and go.</p>
+    <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary btn-lg">Download Wrencher — free for 30 days</a>
+    <p></p><p class="cta-section__note">Windows 10 &amp; 11 &nbsp;·&nbsp; ~50MB installer &nbsp;·&nbsp; Your data stays on your computer</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner" style="grid-template-columns:2fr 1fr 1fr;">
+      <div>
+        <a href="index.html" class="footer__brand"><img src="assets/img/logo.png" alt="Wrencher">Wrencher</a>
+        <p class="footer__tagline">Business software built for tradespeople, not accountants.</p>
+      </div>
+      <div class="footer__col"><h5>Product</h5><ul><li><a href="features.html">Features</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="docs.html">Documentation</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer__col"><h5>Legal</h5><ul><li><a href="privacy.html">Privacy policy</a></li><li><a href="terms.html">Terms of service</a></li><li><a href="refund.html">Refund policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">© 2026 Wrencher. All rights reserved.</span>
+      <span class="footer__copy">Made for tradespeople.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+  function openLB(src,alt){document.getElementById('lb-img').src=src;document.getElementById('lb-img').alt=alt;document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden';}
+  function closeLB(){document.getElementById('lb').classList.remove('open');document.body.style.overflow='';}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
+</script>
+</body>
+</html>

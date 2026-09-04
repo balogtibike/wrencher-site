@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation — Wrencher</title>
+  <meta name="description" content="Wrencher user guide — learn how to use every feature. Download the PDF or read online.">
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Email popup */
+    .email-popup-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(15,23,42,.7);
+      align-items: center; justify-content: center; padding: 24px;
+    }
+    .email-popup-overlay.open { display: flex; }
+    .email-popup {
+      background: var(--white); border-radius: 12px;
+      padding: 36px; max-width: 680px; width: 100%;
+      max-height: 88vh; overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,.3);
+      position: relative;
+    }
+    .email-popup h3 { margin-bottom: 6px; }
+    .email-popup .ep-close {
+      position: absolute; top: 16px; right: 16px;
+      background: var(--paper); border: none; border-radius: 50%;
+      width: 32px; height: 32px; font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--steel);
+    }
+    .email-popup .ep-close:hover { background: var(--rule); }
+    .email-tab-bar {
+      display: flex; gap: 4px; margin: 20px 0 16px;
+      border-bottom: 1px solid var(--rule); padding-bottom: 0;
+    }
+    .email-tab {
+      padding: 8px 16px; border: none; background: none;
+      font-family: inherit; font-size: 14px; font-weight: 600;
+      color: var(--steel); cursor: pointer; border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .email-tab.active { color: var(--ink); border-bottom-color: var(--slate); }
+    .email-tab-content { display: none; }
+    .email-tab-content.active { display: block; }
+    .email-tab-content ol { padding-left: 20px; }
+    .email-tab-content li { font-size: 15px; color: var(--steel); margin-bottom: 8px; line-height: 1.6; }
+    .email-tab-content strong { color: var(--ink); }
+    .email-tab-content code {
+      background: var(--paper); padding: 1px 6px; border-radius: 4px;
+      font-size: 13px; color: var(--ink);
+    }
+    .email-note {
+      margin-top: 16px; padding: 14px 16px;
+      background: #eff6ff; border-radius: 8px;
+      font-size: 14px; color: var(--blue);
+    }
+    /* Docs body full width like other pages */
+    .docs-body { max-width: var(--max); margin: 0 auto; padding: 48px 24px 80px; }
+    .docs__link { color: var(--blue); cursor: pointer; text-decoration: underline; }
+    .docs__link:hover { color: var(--blue-h); }
+  </style>
+</head>
+<body>
+
+<!-- Email setup popup -->
+<div class="email-popup-overlay" id="email-popup" onclick="closeEmailPopup(event)">
+  <div class="email-popup">
+    <button class="ep-close" onclick="closeEmailPopupBtn()">×</button>
+    <h3>Email setup guide</h3>
+    <p style="color:var(--steel);font-size:15px;">Configure your email app to send quotes and invoices directly from Wrencher. Choose your email provider below.</p>
+    <div class="email-tab-bar">
+      <button class="email-tab active" onclick="showEmailTab('gmail')">Gmail</button>
+      <button class="email-tab" onclick="showEmailTab('outlook')">Outlook / Hotmail</button>
+      <button class="email-tab" onclick="showEmailTab('yahoo')">Yahoo Mail</button>
+      <button class="email-tab" onclick="showEmailTab('other')">Other / Custom</button>
+    </div>
+
+    <div class="email-tab-content active" id="tab-gmail">
+      <ol>
+        <li>Go to your Google Account → <strong>Security</strong> → scroll to <strong>How you sign in to Google</strong></li>
+        <li>Enable <strong>2-Step Verification</strong> if not already on (required for app passwords)</li>
+        <li>Search for <strong>App passwords</strong> in your Google Account settings</li>
+        <li>Select app: <strong>Mail</strong>, device: <strong>Windows Computer</strong>, click <strong>Generate</strong></li>
+        <li>Copy the 16-character password shown (spaces don't matter)</li>
+        <li>In Wrencher Settings → Email, enter:<br>
+          <strong>SMTP host:</strong> <code>smtp.gmail.com</code><br>
+          <strong>Port:</strong> <code>587</code><br>
+          <strong>Username:</strong> your full Gmail address<br>
+          <strong>Password:</strong> the 16-character app password<br>
+          <strong>TLS:</strong> enabled
+        </li>
+        <li>Click <strong>Send test email</strong> to verify</li>
+      </ol>
+      <div class="email-note">💡 Use your Gmail address as the "From" email in Wrencher Settings → Business Details.</div>
+    </div>
+
+    <div class="email-tab-content" id="tab-outlook">
+      <ol>
+        <li>Go to <strong>account.microsoft.com</strong> → Security → <strong>Advanced security options</strong></li>
+        <li>Enable <strong>Two-step verification</strong></li>
+        <li>Under <strong>App passwords</strong>, click <strong>Create a new app password</strong></li>
+        <li>Copy the generated password</li>
+        <li>In Wrencher Settings → Email, enter:<br>
+          <strong>SMTP host:</strong> <code>smtp.office365.com</code><br>
+          <strong>Port:</strong> <code>587</code><br>
+          <strong>Username:</strong> your full Outlook/Hotmail address<br>
+          <strong>Password:</strong> the app password<br>
+          <strong>TLS:</strong> enabled
+        </li>
+        <li>Click <strong>Send test email</strong> to verify</li>
+      </ol>
+      <div class="email-note">💡 For personal @hotmail.com or @live.com accounts, use the same steps — the SMTP server is the same.</div>
+    </div>
+
+    <div class="email-tab-content" id="tab-yahoo">
+      <ol>
+        <li>Sign in to Yahoo Mail → click your profile icon → <strong>Account Security</strong></li>
+        <li>Enable <strong>Two-step verification</strong></li>
+        <li>Scroll to <strong>Generate app password</strong>, choose <strong>Other app</strong>, name it "Wrencher"</li>
+        <li>Copy the generated password</li>
+        <li>In Wrencher Settings → Email, enter:<br>
+          <strong>SMTP host:</strong> <code>smtp.mail.yahoo.com</code><br>
+          <strong>Port:</strong> <code>587</code><br>
+          <strong>Username:</strong> your full Yahoo address<br>
+          <strong>Password:</strong> the app password<br>
+          <strong>TLS:</strong> enabled
+        </li>
+        <li>Click <strong>Send test email</strong> to verify</li>
+      </ol>
+    </div>
+
+    <div class="email-tab-content" id="tab-other">
+      <p style="color:var(--steel);font-size:15px;margin-bottom:12px;">For a custom domain email (e.g. hello@yourcompany.com), you need the SMTP details from your email host. These are typically found in your hosting control panel or welcome email.</p>
+      <ol>
+        <li>Log in to your email hosting control panel (cPanel, Namecheap, Zoho, etc.)</li>
+        <li>Find the section labelled <strong>Email Accounts</strong> or <strong>SMTP settings</strong></li>
+        <li>Note down: SMTP server, port (usually 587 or 465), username, and password</li>
+        <li>In Wrencher Settings → Email, enter those details</li>
+        <li>Enable TLS if your host supports it (port 587 = TLS, port 465 = SSL)</li>
+        <li>Click <strong>Send test email</strong> to verify</li>
+      </ol>
+      <div class="email-note">💡 Still stuck? Email us at <a href="mailto:hello@wrencher.app">hello@wrencher.app</a> with your email provider name and we'll help.</div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__brand"><img src="assets/img/logo.png" alt="Wrencher logo">Wrencher</a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="docs.html">Docs</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__cta">
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary" style="height:40px;padding:0 18px;font-size:14px;">Download free trial</a>
+    </div>
+    <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="section__label">Documentation</span>
+    <h1>Wrencher User Guide</h1>
+    <p>Everything you need to get started and make the most of Wrencher.</p>
+  </div>
+</div>
+
+<div class="docs-body">
+
+  <!-- PDF download -->
+  <div class="docs__download">
+    <div>
+      <h3>Download the full guide as PDF</h3>
+      <p>Print it, save it, read it offline. The complete Wrencher user guide in one document.</p>
+    </div>
+    <a href="assets/docs/wrencher-user-guide.pdf" class="btn btn-primary" download>↓ Download PDF guide</a>
+  </div>
+
+  <!-- Table of contents -->
+  <div class="docs__toc">
+    <h4>Contents</h4>
+    <ol>
+      <li><a href="#getting-started">Getting started</a></li>
+      <li><a href="#settings">Settings</a></li>
+      <li><a href="#clients">Clients</a></li>
+      <li><a href="#jobs">Jobs</a></li>
+      <li><a href="#quotes">Quotes</a></li>
+      <li><a href="#invoices">Invoices</a></li>
+      <li><a href="#change-orders">Change orders</a></li>
+      <li><a href="#mileage">Mileage tracking</a></li>
+      <li><a href="#calendar">Calendar</a></li>
+      <li><a href="#license">License activation</a></li>
+    </ol>
+  </div>
+
+  <!-- Getting started -->
+  <div class="docs__section" id="getting-started">
+    <h2>1. Getting started</h2>
+    <h3>Installation</h3>
+    <p>Download the installer from the link above. Run <strong>WrencherSetup.exe</strong> and follow the prompts. Windows may show a SmartScreen warning — click "More info" then "Run anyway". This is normal for new software.</p>
+    <h3>First launch</h3>
+    <p>On first launch, Wrencher creates a fresh database on your computer at <strong>%APPDATA%\Wrencher\wrencher.db</strong>. Go to Settings first and fill in your business details — these appear on all your PDFs.</p>
+    <h3>The recommended workflow</h3>
+    <p>The typical Wrencher workflow follows this path: add a <strong>Client</strong> → create a <strong>Job</strong> → send a <strong>Quote</strong> → raise a <strong>Change Order</strong> if scope changes → create an <strong>Invoice</strong> → record <strong>Payment</strong>.</p>
+  </div>
+
+  <!-- Settings -->
+  <div class="docs__section" id="settings">
+    <h2>2. Settings</h2>
+    <h3>Business details</h3>
+    <p>Add your business name, address, phone, email, and website. These appear on every PDF you generate. Upload your logo (PNG recommended, under 2MB).</p>
+    <h3>Tax</h3>
+    <p>Set your tax name (VAT, GST, Tax, etc.) and rate. Enable or disable tax globally. Tax is applied to all new quotes and invoices at the rate set here.</p>
+    <h3>Numbering</h3>
+    <p>Set prefixes for quote numbers (QTE), invoice numbers (INV), job numbers (JOB), and change orders (CO). Numbers increment automatically.</p>
+    <h3>Price book</h3>
+    <p>Add your standard items and rates to the price book. When creating line items on quotes or invoices, start typing to autocomplete from your price book, or use the price book picker button.</p>
+    <h3>Line item types and units</h3>
+    <p>Add custom item types (Labour, Material, Travel, etc.) and units (hr, each, m², load) in Settings. These appear in the line item dropdowns on all quotes and invoices.</p>
+    <h3>Mileage</h3>
+    <p>Set your mileage rate (e.g. 0.45 per mile) and whether you track miles or kilometres.</p>
+    <h3>Email (SMTP)</h3>
+    <p>Configure your email settings to send quotes and invoices directly from the app. Enter your SMTP server, port, username, and app password. See the <span class="docs__link" onclick="openEmailPopup()">email setup guide</span> if you need help with Gmail, Outlook, or other providers.</p>
+  </div>
+
+  <!-- Clients -->
+  <div class="docs__section" id="clients">
+    <h2>3. Clients</h2>
+    <p>Add clients with their name, contact details, and billing address. Client details appear automatically on quotes and invoices. You can add a new client directly from the quote or invoice form without leaving it.</p>
+    <p>Each client has a detail view showing all their linked jobs, quotes, and invoices in one place.</p>
+  </div>
+
+  <!-- Jobs -->
+  <div class="docs__section" id="jobs">
+    <h2>4. Jobs</h2>
+    <h3>Creating a job</h3>
+    <p>Create a job for each piece of work. Assign it a client, status, priority, type, start and end dates, and site address. Jobs move through statuses: Enquiry → Quoted → In Progress → Complete.</p>
+    <h3>Dashboard alerts</h3>
+    <p>The dashboard shows attention cards for jobs that need action — jobs with no start date, jobs where the start date has passed, jobs that are complete but not yet invoiced, and more.</p>
+    <h3>Photos</h3>
+    <p>Attach photos to a job from the job detail view. Useful for before/after documentation and for keeping records alongside the paperwork.</p>
+    <h3>Date filter</h3>
+    <p>Use the From/To date filter on the Jobs page to view jobs starting within a specific period. Click ✕ to clear the filter.</p>
+  </div>
+
+  <!-- Quotes -->
+  <div class="docs__section" id="quotes">
+    <h2>5. Quotes</h2>
+    <h3>Single quote</h3>
+    <p>A standard quote with one set of prices. Add line items manually or from your price book. Set a deposit amount (percentage or fixed). Set an expiry date. Generate a PDF and send it from the app.</p>
+    <h3>Multi-option quote</h3>
+    <p>Present the client with 2 or 3 pricing options (Option A, B, C) in one document. Each option has its own line items and total. The client picks one. When they accept, the other options are automatically declined. Create an invoice from the accepted option in one click.</p>
+    <h3>Quote statuses</h3>
+    <ul>
+      <li><strong>Draft</strong> — not yet sent to the client</li>
+      <li><strong>Sent</strong> — emailed to the client, awaiting response</li>
+      <li><strong>Accepted</strong> — client has agreed to proceed</li>
+      <li><strong>Declined</strong> — client did not proceed</li>
+    </ul>
+    <h3>Subject / title</h3>
+    <p>If a quote is not linked to a job, you can add a subject/title (e.g. "Bathroom renovation") which appears in the quote list and on the invoice created from it.</p>
+    <h3>Creating an invoice from a quote</h3>
+    <p>Once a quote is accepted, go to Invoices → New Invoice → From accepted quote. Select the quote. Line items, tax, and deposit are copied automatically.</p>
+  </div>
+
+  <!-- Invoices -->
+  <div class="docs__section" id="invoices">
+    <h2>6. Invoices</h2>
+    <h3>Invoice types</h3>
+    <ul>
+      <li><strong>From accepted quote</strong> — pulls line items, deposit, and terms from the quote automatically</li>
+      <li><strong>Blank invoice</strong> — build from scratch for jobs that never needed a formal quote</li>
+      <li><strong>Recurring invoice</strong> — repeats monthly, quarterly, or annually. Dashboard alerts when the next one is due</li>
+    </ul>
+    <h3>Invoice statuses</h3>
+    <ul>
+      <li><strong>Draft</strong> — not yet sent</li>
+      <li><strong>Sent</strong> — emailed to the client</li>
+      <li><strong>Partially paid</strong> — payment received but balance still outstanding</li>
+      <li><strong>Paid</strong> — fully settled</li>
+      <li><strong>Overdue</strong> — past due date with outstanding balance</li>
+      <li><strong>Disputed</strong> — client has raised a dispute</li>
+    </ul>
+    <h3>Recording payments</h3>
+    <p>Open an invoice detail and click Record Payment. Enter the amount received. The balance updates automatically. Multiple payments are supported for staged or partial payments.</p>
+    <h3>Discounts</h3>
+    <p>Add a percentage or fixed discount when creating or editing an invoice. The discount is shown on the invoice detail and PDF.</p>
+  </div>
+
+  <!-- Change orders -->
+  <div class="docs__section" id="change-orders">
+    <h2>7. Change orders</h2>
+    <p>When the scope of a job changes after the original quote is accepted, raise a change order. Add the extra line items and send the change order PDF to the client for approval.</p>
+    <p>Set the status to Approved once the client agrees. When you create an invoice from the original quote, all approved change orders are automatically included with a reference note.</p>
+    <p>The dashboard shows a card when change orders have been pending for more than 7 days.</p>
+  </div>
+
+  <!-- Mileage -->
+  <div class="docs__section" id="mileage">
+    <h2>8. Mileage tracking</h2>
+    <p>Log every trip to site and Wrencher calculates the value at your configured rate. Link trips to jobs for a full record. At the end of the tax year, export a CSV and hand it to your accountant.</p>
+    <p>The mileage page shows this month, this year, and all-time totals. Use the date filter to view a specific period.</p>
+  </div>
+
+  <!-- Calendar -->
+  <div class="docs__section" id="calendar">
+    <h2>9. Calendar</h2>
+    <p>The calendar shows all your jobs with start and end dates as bars across the week or month. Jobs with no start date appear in the undated strip above the calendar — click the calendar icon on any job bar to reschedule it.</p>
+    <p>Use the Week view for day-to-day planning and the Month view for a broader overview.</p>
+  </div>
+
+  <!-- License -->
+  <div class="docs__section" id="license">
+    <h2>10. License activation</h2>
+    <p>After purchasing, you will receive a license key by email. Open Wrencher, go to <strong>Settings → License</strong>, paste your key, and click Activate. The app will verify the key and unlock fully.</p>
+    <p>Each license allows activation on 2 computers. If you need to transfer your license to a new machine, email hello@wrencher.app.</p>
+    <h3>Trial period</h3>
+    <p>The 30-day trial starts from the first time you launch Wrencher. All features are fully available during the trial. When the trial ends, purchase a license from Settings → License to continue.</p>
+  </div>
+
+  <div style="margin-top:48px;padding:28px;background:var(--paper);border-radius:var(--radius);border:1px solid var(--rule);text-align:center;">
+    <p style="margin:0 auto 16px;color:var(--steel);">Can't find what you're looking for?</p>
+    <a href="contact.html" class="btn btn-primary">Contact support</a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner" style="grid-template-columns:2fr 1fr 1fr;">
+      <div><a href="index.html" class="footer__brand"><img src="assets/img/logo.png" alt="Wrencher">Wrencher</a><p class="footer__tagline">Business software built for tradespeople, not accountants.</p></div>
+      <div class="footer__col"><h5>Product</h5><ul><li><a href="features.html">Features</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="docs.html">Documentation</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer__col"><h5>Legal</h5><ul><li><a href="privacy.html">Privacy policy</a></li><li><a href="terms.html">Terms of service</a></li><li><a href="refund.html">Refund policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span class="footer__copy">© 2026 Wrencher. All rights reserved.</span><span class="footer__copy">Made for tradespeople.</span></div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+  function openEmailPopup() {
+    document.getElementById('email-popup').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeEmailPopup(e) {
+    if (e.target === document.getElementById('email-popup')) {
+      closeEmailPopupBtn();
+    }
+  }
+  function closeEmailPopupBtn() {
+    document.getElementById('email-popup').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function showEmailTab(name) {
+    document.querySelectorAll('.email-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.email-tab-content').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEmailPopupBtn(); });
+</script>
+</body>
+</html>

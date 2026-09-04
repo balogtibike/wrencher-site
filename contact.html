@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Wrencher</title>
+  <meta name="description" content="Get in touch with the Wrencher team. We respond within one business day.">
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__brand"><img src="assets/img/logo.png" alt="Wrencher logo">Wrencher</a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="docs.html">Docs</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__cta">
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary" style="height:40px;padding:0 18px;font-size:14px;">Download free trial</a>
+    </div>
+    <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="section__label">Contact</span>
+    <h1>Get in touch.</h1>
+    <p>Questions, feedback, or support — we read every message and reply within one business day.</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top:64px;">
+  <div class="container">
+    <div class="contact__grid">
+      <div class="contact__info">
+        <h3>How can we help?</h3>
+        <p>Whether you have a question before buying, need help with a feature, or want to report a bug — send us a message.</p>
+        <p>For urgent issues, email us directly and we'll respond as quickly as we can.</p>
+        <div class="contact__item">
+          <div class="contact__item-icon">✉️</div>
+          <div class="contact__item-text">
+            <div class="contact__item-label">Email</div>
+            <a href="mailto:hello@wrencher.app">hello@wrencher.app</a>
+          </div>
+        </div>
+        <div class="contact__item">
+          <div class="contact__item-icon">⏱️</div>
+          <div class="contact__item-text">
+            <div class="contact__item-label">Response time</div>
+            Within one business day
+          </div>
+        </div>
+        <div class="contact__item">
+          <div class="contact__item-icon">📖</div>
+          <div class="contact__item-text">
+            <div class="contact__item-label">Documentation</div>
+            <a href="docs.html">Read the user guide</a>
+          </div>
+        </div>
+        <div style="margin-top:32px;padding:20px;background:var(--paper);border-radius:var(--radius);border:1px solid var(--rule);">
+          <h4 style="font-size:13px;margin-bottom:8px;">Refund requests</h4>
+          <p style="font-size:14px;color:var(--steel);max-width:none;">We offer a full 30-day refund, no questions asked. Just email us with your order number and we'll process it promptly. See our <a href="refund.html">refund policy</a>.</p>
+        </div>
+      </div>
+      <div>
+        <form id="contact-form" class="contact__form">
+          <input type="hidden" name="access_key" value="2a4d4b02-23b3-4fe4-b797-827a3ee5fad4">
+          <input type="hidden" name="subject" value="Wrencher contact form">
+          <input type="hidden" name="from_name" value="Wrencher Website">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Your name</label>
+              <input type="text" id="name" name="name" required placeholder="John Smith">
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" required placeholder="john@example.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject-field">Subject</label>
+            <select id="subject-field" name="topic">
+              <option value="">Select a topic</option>
+              <option value="Pre-sales question">Pre-sales question</option>
+              <option value="Technical support">Technical support</option>
+              <option value="Licensing / activation">Licensing / activation</option>
+              <option value="Refund request">Refund request</option>
+              <option value="Feature request">Feature request</option>
+              <option value="Bug report">Bug report</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required placeholder="Tell us how we can help…" rows="6"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:14px;">Send message</button>
+          <div id="form-success" class="form-success">✓ Message sent — we'll reply within one business day.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner" style="grid-template-columns:2fr 1fr 1fr;">
+      <div><a href="index.html" class="footer__brand"><img src="assets/img/logo.png" alt="Wrencher">Wrencher</a><p class="footer__tagline">Business software built for tradespeople, not accountants.</p></div>
+      <div class="footer__col"><h5>Product</h5><ul><li><a href="features.html">Features</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="docs.html">Documentation</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer__col"><h5>Legal</h5><ul><li><a href="privacy.html">Privacy policy</a></li><li><a href="terms.html">Terms of service</a></li><li><a href="refund.html">Refund policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span class="footer__copy">© 2026 Wrencher. All rights reserved.</span><span class="footer__copy">Made for tradespeople.</span></div>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

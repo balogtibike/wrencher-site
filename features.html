@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features — Wrencher</title>
+  <meta name="description" content="Every feature in Wrencher — jobs, quotes, invoices, change orders, mileage, calendar, reports. Built for solo tradespeople.">
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .lb{display:none;position:fixed;inset:0;z-index:1000;background:rgba(15,23,42,.88);align-items:center;justify-content:center;padding:24px}
+    .lb.open{display:flex}
+    .lb img{max-width:90vw;max-height:88vh;border-radius:10px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+    .lb-close{position:fixed;top:20px;right:24px;background:rgba(255,255,255,.15);border:none;color:white;font-size:28px;width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .lb-close:hover{background:rgba(255,255,255,.25)}
+    .feature-block__img{cursor:zoom-in}
+    .cta-section__note{margin-top:24px}
+  </style>
+</head>
+<body>
+
+<div class="lb" id="lb" onclick="closeLB()">
+  <button class="lb-close" onclick="closeLB()">×</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__brand"><img src="assets/img/logo.png" alt="Wrencher logo">Wrencher</a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="docs.html">Docs</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__cta">
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary" style="height:40px;padding:0 18px;font-size:14px;">Download free trial</a>
+    </div>
+    <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="section__label">Features</span>
+    <h1>Everything a tradesperson needs.</h1>
+    <p>Built around how you actually work — not how an accountant thinks you work.</p>
+  </div>
+</div>
+
+<div style="background:var(--white);">
+
+  <!-- Jobs -->
+  <div class="feature-block">
+    <div class="container">
+      <div class="feature-block__inner">
+        <div class="feature-block__body">
+          <span class="feature-block__tag">Jobs</span>
+          <h2 class="feature-block__title">Every job, tracked from enquiry to complete.</h2>
+          <p class="feature-block__desc">Keep all your jobs in one place. Set status, priority, dates, and address. Get dashboard alerts when something needs your attention.</p>
+          <ul class="feature-block__list">
+            <li>Status tracking: Enquiry → Quoted → In Progress → Complete</li>
+            <li>Priority levels and job types (residential, commercial, emergency)</li>
+            <li>Start and end dates with overdue alerts</li>
+            <li>Photo attachments directly on the job</li>
+            <li>Notes and full address per job</li>
+            <li>Dashboard attention cards for jobs needing action</li>
+          </ul>
+        </div>
+        <img src="assets/img/dashboard.png" alt="Wrencher dashboard" class="feature-block__img" onclick="openLB('assets/img/dashboard.png','Wrencher dashboard')">
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendar -->
+  <div class="feature-block" style="background:var(--paper);">
+    <div class="container">
+      <div class="feature-block__inner feature-block__inner--rev">
+        <div class="feature-block__body">
+          <span class="feature-block__tag">Calendar</span>
+          <h2 class="feature-block__title">See your week. Plan your schedule.</h2>
+          <p class="feature-block__desc">Week and month views show every job at a glance. Jobs without dates sit in an undated strip above the calendar until you're ready to schedule them.</p>
+          <ul class="feature-block__list">
+            <li>Week and month calendar views</li>
+            <li>Job bars spanning start to end date</li>
+            <li>Undated jobs strip — schedule when ready</li>
+            <li>Reschedule by clicking and setting a new date</li>
+            <li>Colour-coded by job status</li>
+          </ul>
+        </div>
+        <img src="assets/img/weekly_calendar.png" alt="Wrencher week calendar" class="feature-block__img" onclick="openLB('assets/img/weekly_calendar.png','Week calendar')">
+      </div>
+    </div>
+  </div>
+
+  <!-- Quotes -->
+  <div class="feature-block">
+    <div class="container">
+      <div class="feature-block__inner">
+        <div class="feature-block__body">
+          <span class="feature-block__tag">Quotes</span>
+          <h2 class="feature-block__title">Professional quotes in minutes.</h2>
+          <p class="feature-block__desc">Build quotes from your price book. Generate a PDF instantly. Send straight to the client. No formatting, no fiddling.</p>
+          <ul class="feature-block__list">
+            <li>Single quotes or multi-option quotes (A/B/C pricing)</li>
+            <li>Price book — store your standard items and rates</li>
+            <li>Tax, discounts, and deposit support</li>
+            <li>Expiry dates with dashboard alerts</li>
+            <li>PDF generated instantly with your logo</li>
+            <li>Send by email directly from the app</li>
+            <li>Accepted quote converts to invoice in one click</li>
+          </ul>
+        </div>
+        <img src="assets/img/multi_quote.png" alt="Multi-option quote in Wrencher" class="feature-block__img" onclick="openLB('assets/img/multi_quote.png','Multi-option quote')">
+      </div>
+    </div>
+  </div>
+
+  <!-- Invoices -->
+  <div class="feature-block" style="background:var(--paper);">
+    <div class="container">
+      <div class="feature-block__inner feature-block__inner--rev">
+        <div class="feature-block__body">
+          <span class="feature-block__tag">Invoices</span>
+          <h2 class="feature-block__title">Get paid. Know who owes what.</h2>
+          <p class="feature-block__desc">Create invoices from accepted quotes or from scratch. Track every payment. See outstanding, overdue, and paid at a glance.</p>
+          <ul class="feature-block__list">
+            <li>Invoice from accepted quote in one click</li>
+            <li>Blank invoices for quick jobs</li>
+            <li>Recurring invoices — monthly, quarterly, annually</li>
+            <li>Partial payments tracked</li>
+            <li>Overdue alerts on dashboard</li>
+            <li>Professional PDF with your logo</li>
+            <li>Send payment reminders by email</li>
+          </ul>
+        </div>
+        <img src="assets/img/invoice_list.png" alt="Wrencher invoice list" class="feature-block__img" onclick="openLB('assets/img/invoice_list.png','Invoice list')">
+      </div>
+    </div>
+  </div>
+
+  <!-- Change orders -->
+  <div class="feature-block">
+    <div class="container">
+      <div class="feature-block__inner">
+        <div class="feature-block__body">
+          <span class="feature-block__tag">Change orders</span>
+          <h2 class="feature-block__title">Charge for every change. Every time.</h2>
+          <p class="feature-block__desc">When scope changes mid-job, raise a change order. Get it approved. It rolls automatically into the final invoice — nothing falls through the cracks.</p>
+          <ul class="feature-block__list">
+            <li>Raise change orders against any job</li>
+            <li>Pending, approved, and declined statuses</li>
+            <li>Dashboard alert for pending change orders</li>
+            <li>Approved items automatically included in invoice</li>
+            <li>Change order PDF for client approval</li>
+          </ul>
+        </div>
+        <img src="assets/img/changeorder.png" alt="Invoice detail in Wrencher" class="feature-block__img" onclick="openLB('assets/img/changeorder.png','Invoice detail')">
+      </div>
+    </div>
+  </div>
+
+  <!-- Mileage -->
+  <div class="feature-block" style="background:var(--paper);">
+    <div class="container">
+      <div class="feature-block__inner feature-block__inner--rev">
+        <div class="feature-block__body">
+          <span class="feature-block__tag">Mileage tracking</span>
+          <h2 class="feature-block__title">Every mile logged. Nothing missed at tax time.</h2>
+          <p class="feature-block__desc">Log every trip, link it to a job, and export a clean CSV for your accountant at the end of the year.</p>
+          <ul class="feature-block__list">
+            <li>Log trips with date, from, to, distance, and purpose</li>
+            <li>Link trips to jobs</li>
+            <li>Miles or kilometres</li>
+            <li>Configurable rate per mile/km</li>
+            <li>This month, this year, and all-time totals</li>
+            <li>CSV export for your accountant</li>
+          </ul>
+        </div>
+        <img src="assets/img/mileage.png" alt="Mileage tracking" class="feature-block__img" onclick="openLB('assets/img/mileage.png','Dashboard')">
+      </div>
+    </div>
+  </div>
+
+  <!-- Reports & Statistics -->
+  <div class="feature-block">
+    <div class="container">
+      <div class="feature-block__inner">
+        <div class="feature-block__body">
+          <span class="feature-block__tag">Reports &amp; statistics</span>
+          <h2 class="feature-block__title">Know your numbers. Grow your business.</h2>
+          <p class="feature-block__desc">Stop guessing which jobs make money and which clients are worth chasing. Wrencher gives you the numbers to make real business decisions.</p>
+          <ul class="feature-block__list">
+            <li>Revenue by month — spot your busy and slow periods</li>
+            <li>Outstanding invoices — see every unpaid balance in one view</li>
+            <li>Job profitability — know which jobs earn and which don't</li>
+            <li>Client revenue ranking — focus on your best clients</li>
+            <li>Quote conversion rate — see how many quotes turn into jobs</li>
+            <li>Overdue tracking — never lose money to forgotten invoices again</li>
+          </ul>
+        </div>
+        <img src="assets/img/reports.png" alt="Wrencher reports and dashboard" class="feature-block__img" onclick="openLB('assets/img/reports.png','Reports dashboard')">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Try every feature free for 30 days.</h2>
+    <p>No credit card. No account. No cloud. Just install and go.</p>
+    <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary btn-lg">Download Wrencher — free for 30 days</a>
+    <p></p><p class="cta-section__note">Windows 10 &amp; 11 &nbsp;·&nbsp; ~50MB installer &nbsp;·&nbsp; Your data stays on your computer</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner" style="grid-template-columns:2fr 1fr 1fr;">
+      <div><a href="index.html" class="footer__brand"><img src="assets/img/logo.png" alt="Wrencher">Wrencher</a><p class="footer__tagline">Business software built for tradespeople, not accountants.</p></div>
+      <div class="footer__col"><h5>Product</h5><ul><li><a href="features.html">Features</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="docs.html">Documentation</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer__col"><h5>Legal</h5><ul><li><a href="privacy.html">Privacy policy</a></li><li><a href="terms.html">Terms of service</a></li><li><a href="refund.html">Refund policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span class="footer__copy">© 2026 Wrencher. All rights reserved.</span><span class="footer__copy">Made for tradespeople.</span></div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+  function openLB(src,alt){document.getElementById('lb-img').src=src;document.getElementById('lb-img').alt=alt;document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden';}
+  function closeLB(){document.getElementById('lb').classList.remove('open');document.body.style.overflow='';}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
+</script>
+</body>
+</html>
