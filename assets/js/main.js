@@ -35,7 +35,8 @@ if (form) {
         method: 'POST',
         body: new FormData(form),
       });
-      if (res.ok) {
+      const data = await res.json();
+      if (data.success) {
         form.reset();
         form.style.display = 'none';
         const success = document.getElementById('form-success');
@@ -43,12 +44,12 @@ if (form) {
       } else {
         btn.disabled = false;
         btn.textContent = 'Send message';
-        alert('Something went wrong. Please email us directly at hello@wrencher.app');
+        alert('Error: ' + (data.message || 'Unknown error'));
       }
-    } catch {
+    } catch (err) {
       btn.disabled = false;
       btn.textContent = 'Send message';
-      alert('Something went wrong. Please email us directly at hello@wrencher.app');
+      alert('Network error: ' + err.message);
     }
   });
 }
