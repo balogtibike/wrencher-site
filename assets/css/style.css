@@ -211,17 +211,33 @@ p { max-width: 68ch; }
   background: var(--white);
   border: 1px solid var(--rule);
   border-radius: var(--radius);
-  padding: 28px 28px 28px 24px;
-  border-left: 3px solid var(--rule);
-  transition: border-left-color .2s;
+  padding: 24px;
+  transition: border-color .2s;
 }
-.pain__card:hover { border-left-color: var(--slate); }
+.pain__card:hover { border-color: #94a3b8; }
+.pain__card-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.pain__card-icon {
+  flex-shrink: 0;
+  width: 2.2em;
+  height: 2.2em;
+  margin-top: 2px;
+}
+.pain__card-icon img {
+  width: 100%;
+  height: 100%;
+  opacity: .65;
+}
 .pain__icon {
   font-size: 22px; margin-bottom: 12px;
 }
 .pain__text {
   font-size: 16px; line-height: 1.65;
   color: var(--steel); max-width: none;
+  margin: 0;
 }
 
 /* ── Features overview ───────────────────────────────────────────────── */
