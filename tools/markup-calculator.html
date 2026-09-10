@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Quote Markup Calculator for Tradespeople — Profit Margin | Wrencher</title>
+  <meta name="description" content="Calculate your selling price from cost and desired profit margin. Or work backwards from a selling price to find your margin. Free markup calculator for tradespeople.">
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__brand"><img src="../assets/img/logo.png" alt="Wrencher logo">Wrencher</a>
+    <ul class="nav__links">
+      <li><a href="../index.html">Home</a></li><li><a href="../features.html">Features</a></li>
+      <li><a href="index.html">Tools</a></li><li><a href="../pricing.html">Pricing</a></li>
+      <li><a href="../docs.html">Docs</a></li><li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__cta"><a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary" style="height:40px;padding:0 18px;font-size:14px;">Download free trial</a></div>
+    <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="section__label"><a href="index.html" style="color:var(--blue);text-decoration:none;">Free tools</a> &nbsp;›&nbsp; Quote markup calculator</span>
+    <h1>Quote Markup &amp; Profit Margin Calculator</h1>
+    <p>Enter your cost and desired margin to get the selling price — or work backwards from a price to find your profit.</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top:40px;padding-bottom:64px;">
+  <div class="container" style="max-width:760px;">
+
+    <div class="calc-cta-top">
+      <span>Wrencher builds professional quotes with your prices in minutes — no more spreadsheet maths.</span>
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe">Try it free for 30 days →</a>
+    </div>
+
+    <div class="country-bar">
+      <span>Currency:</span>
+      <button class="country-btn active" onclick="setCountry('uk',this)">🇬🇧 £ GBP</button>
+      <button class="country-btn" onclick="setCountry('us',this)">🇺🇸 $ USD</button>
+      <button class="country-btn" onclick="setCountry('ca',this)">🇨🇦 $ CAD</button>
+      <button class="country-btn" onclick="setCountry('au',this)">🇦🇺 $ AUD</button>
+    </div>
+
+    <!-- Mode tabs -->
+    <div style="display:flex;gap:0;margin-bottom:24px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;width:fit-content;">
+      <button id="tab-forward" onclick="setMode('forward')" style="padding:10px 20px;border:none;background:var(--slate);color:white;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;">Cost → Selling price</button>
+      <button id="tab-backward" onclick="setMode('backward')" style="padding:10px 20px;border:none;background:var(--white);color:var(--steel);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-left:1px solid var(--rule);">Selling price → Margin</button>
+    </div>
+
+    <div class="calc-card">
+      <div id="mode-forward">
+        <div class="calc-grid">
+          <div class="calc-field">
+            <label>Total cost (<span class="lbl-currency">£</span>) — labour + materials</label>
+            <input type="number" id="cost" placeholder="0.00" min="0" step="0.01" oninput="calculate()">
+          </div>
+          <div class="calc-field">
+            <label>Desired profit margin (%)</label>
+            <input type="number" id="margin" value="30" min="0" max="99" step="1" oninput="calculate()">
+          </div>
+        </div>
+      </div>
+      <div id="mode-backward" style="display:none;">
+        <div class="calc-grid">
+          <div class="calc-field">
+            <label>Selling price (<span class="lbl-currency">£</span>)</label>
+            <input type="number" id="sell" placeholder="0.00" min="0" step="0.01" oninput="calculate()">
+          </div>
+          <div class="calc-field">
+            <label>Total cost (<span class="lbl-currency">£</span>)</label>
+            <input type="number" id="cost2" placeholder="0.00" min="0" step="0.01" oninput="calculate()">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-result">
+      <h3>Result</h3>
+      <div class="result-row"><span>Total cost</span><span class="result-val" id="r-cost">—</span></div>
+      <div class="result-row"><span>Profit amount</span><span class="result-val" id="r-profit">—</span></div>
+      <div class="result-row"><span>Profit margin</span><span class="result-val" id="r-margin">—</span></div>
+      <div class="result-row"><span>Markup on cost</span><span class="result-val" id="r-markup">—</span></div>
+      <div class="result-row total"><span>Selling price (ex. tax)</span><span class="result-val" id="r-sell">—</span></div>
+    </div>
+
+    <div style="margin-top:16px;padding:14px 16px;background:#eff6ff;border-radius:8px;font-size:13px;color:#1e40af;">
+      💡 <strong>Margin vs markup:</strong> A 30% <em>margin</em> means profit is 30% of the selling price. A 30% <em>markup</em> means profit is 30% of the cost. They give different results — this calculator uses margin (industry standard for pricing).
+    </div>
+
+    <div class="docs__section" style="margin-top:40px;">
+      <h2>Margin vs markup — what's the difference?</h2>
+      <p>These two terms are often confused, and getting them wrong can mean undercharging significantly.</p>
+      <h3>Profit margin</h3>
+      <p>Margin = profit ÷ selling price. A 30% margin on a £1,000 job means £300 profit and £700 cost. This is the standard way to express profitability in business.</p>
+      <h3>Markup</h3>
+      <p>Markup = profit ÷ cost. A 30% markup on £700 cost gives a selling price of £910 — not £1,000. If you use markup language but calculate with margin formulas (or vice versa), you will consistently underprice your work.</p>
+      <h3>What margin should tradespeople use?</h3>
+      <p>A healthy net profit margin for a self-employed tradesperson is typically 20–35% after all costs. Below 20% is tight — any unexpected cost can wipe out your profit on a job. Above 35% is excellent and sustainable for growth.</p>
+    </div>
+
+    <div class="calc-cta-bottom">
+      <h3>Charging enough — but is every invoice actually getting paid?</h3>
+      <p>Knowing your margin is step one. Wrencher makes sure the invoice goes out promptly, the client gets a reminder if they are late, and your dashboard shows you exactly what is outstanding.</p>
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary btn-lg" style="background:white;color:var(--slate);">Download Wrencher free — 30 day trial</a>
+      <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.5);">No credit card · Windows 10/11 · Your data stays on your computer</p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner" style="grid-template-columns:2fr 1fr 1fr;">
+      <div><a href="../index.html" class="footer__brand"><img src="../assets/img/logo.png" alt="Wrencher">Wrencher</a><p class="footer__tagline">Business software built for tradespeople, not accountants.</p></div>
+      <div class="footer__col"><h5>Product</h5><ul><li><a href="../features.html">Features</a></li><li><a href="../pricing.html">Pricing</a></li><li><a href="../docs.html">Documentation</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+      <div class="footer__col"><h5>Legal</h5><ul><li><a href="../privacy.html">Privacy policy</a></li><li><a href="../terms.html">Terms of service</a></li><li><a href="../refund.html">Refund policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span class="footer__copy">© 2026 Wrencher. All rights reserved.</span><span class="footer__copy">Made for tradespeople.</span></div>
+  </div>
+</footer>
+<script src="../assets/js/main.js"></script>
+<script>
+const SYMS = { uk:'£', us:'$', ca:'$', au:'$' };
+let current = localStorage.getItem('wrencher_country') || 'uk';
+let mode = 'forward';
+
+function setCountry(code, btn) {
+  current = code;
+  localStorage.setItem('wrencher_country', code);
+  document.querySelectorAll('.country-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.lbl-currency').forEach(el => el.textContent = SYMS[code]);
+  calculate();
+}
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('mode-forward').style.display  = m === 'forward'  ? '' : 'none';
+  document.getElementById('mode-backward').style.display = m === 'backward' ? '' : 'none';
+  document.getElementById('tab-forward').style.background  = m === 'forward'  ? 'var(--slate)' : 'var(--white)';
+  document.getElementById('tab-forward').style.color       = m === 'forward'  ? 'white' : 'var(--steel)';
+  document.getElementById('tab-backward').style.background = m === 'backward' ? 'var(--slate)' : 'var(--white)';
+  document.getElementById('tab-backward').style.color      = m === 'backward' ? 'white' : 'var(--steel)';
+  calculate();
+}
+
+function fmt(n) { return SYMS[current] + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,','); }
+
+function calculate() {
+  let cost, sell, profit, margin, markup;
+  if (mode === 'forward') {
+    cost   = parseFloat(document.getElementById('cost').value)   || 0;
+    margin = parseFloat(document.getElementById('margin').value) || 0;
+    if (margin >= 100) margin = 99;
+    sell   = cost / (1 - margin / 100);
+    profit = sell - cost;
+    markup = cost > 0 ? (profit / cost * 100) : 0;
+  } else {
+    sell   = parseFloat(document.getElementById('sell').value)  || 0;
+    cost   = parseFloat(document.getElementById('cost2').value) || 0;
+    profit = sell - cost;
+    margin = sell > 0 ? (profit / sell * 100) : 0;
+    markup = cost > 0 ? (profit / cost * 100) : 0;
+  }
+  const hasVal = cost > 0 || sell > 0;
+  document.getElementById('r-cost').textContent   = hasVal ? fmt(cost)   : '—';
+  document.getElementById('r-profit').textContent = hasVal ? fmt(profit) : '—';
+  document.getElementById('r-margin').textContent = hasVal ? margin.toFixed(1) + '%' : '—';
+  document.getElementById('r-markup').textContent = hasVal ? markup.toFixed(1) + '%' : '—';
+  document.getElementById('r-sell').textContent   = hasVal ? fmt(sell)   : '—';
+}
+
+(function() {
+  const saved = localStorage.getItem('wrencher_country') || 'uk';
+  const btn = document.querySelector(`.country-btn[onclick*="'${saved}'"]`);
+  if (btn) setCountry(saved, btn);
+})();
+</script>
+</body>
+</html>

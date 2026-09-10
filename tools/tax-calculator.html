@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free VAT & Tax Calculator for Tradespeople — UK, US, Canada, Australia | Wrencher</title>
+  <meta name="description" content="Free VAT and tax calculator for tradespeople. Add or remove VAT, GST, or sales tax instantly. Supports UK (20%), US, Canada (GST/HST), and Australia (GST 10%).">
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__brand"><img src="../assets/img/logo.png" alt="Wrencher logo">Wrencher</a>
+    <ul class="nav__links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../features.html">Features</a></li>
+      <li><a href="index.html">Tools</a></li>
+      <li><a href="../pricing.html">Pricing</a></li>
+      <li><a href="../docs.html">Docs</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__cta">
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary" style="height:40px;padding:0 18px;font-size:14px;">Download free trial</a>
+    </div>
+    <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="section__label"><a href="index.html" style="color:var(--blue);text-decoration:none;">Free tools</a> &nbsp;›&nbsp; VAT / Tax calculator</span>
+    <h1>VAT &amp; Tax Calculator</h1>
+    <p>Add tax to a net amount, or remove tax from a gross amount. Free, instant, no sign-up.</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top:40px;padding-bottom:64px;">
+  <div class="container" style="max-width:760px;">
+
+    <!-- Top CTA -->
+    <div class="calc-cta-top">
+      <span>Wrencher calculates tax automatically on every quote and invoice you create.</span>
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe">Try it free for 30 days →</a>
+    </div>
+
+    <!-- Country selector -->
+    <div class="country-bar">
+      <span>Your country:</span>
+      <button class="country-btn active" onclick="setCountry('uk',this)">🇬🇧 UK</button>
+      <button class="country-btn" onclick="setCountry('us',this)">🇺🇸 US</button>
+      <button class="country-btn" onclick="setCountry('ca',this)">🇨🇦 Canada</button>
+      <button class="country-btn" onclick="setCountry('au',this)">🇦🇺 Australia</button>
+    </div>
+
+    <!-- Calculator -->
+    <div class="calc-card">
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label for="amount">Amount (<span class="lbl-currency">£</span>)</label>
+          <input type="number" id="amount" placeholder="0.00" min="0" step="0.01" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label for="rate">Tax rate (%)</label>
+          <input type="number" id="rate" value="20" min="0" max="100" step="0.1" oninput="calculate()">
+        </div>
+        <div class="calc-field full">
+          <label>Calculate</label>
+          <div style="display:flex;gap:12px;">
+            <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;">
+              <input type="radio" name="mode" value="add" checked onchange="calculate()">
+              Add tax to net amount (ex. tax → inc. tax)
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;">
+              <input type="radio" name="mode" value="remove" onchange="calculate()">
+              Remove tax from gross amount (inc. tax → ex. tax)
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-result">
+        <h3>Result</h3>
+        <div class="result-row">
+          <span id="lbl-net">Net amount (ex. VAT)</span>
+          <span class="result-val" id="res-net">—</span>
+        </div>
+        <div class="result-row">
+          <span id="lbl-tax">VAT (20%)</span>
+          <span class="result-val" id="res-tax">—</span>
+        </div>
+        <div class="result-row total">
+          <span id="lbl-gross">Gross amount (inc. VAT)</span>
+          <span class="result-val" id="res-gross">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info section -->
+    <div class="docs__section" style="margin-top:40px;">
+      <h2 id="info-heading">VAT rates in the UK</h2>
+      <div id="info-body">
+        <p>VAT (Value Added Tax) is charged on most goods and services in the UK. The standard rate is <strong>20%</strong>. Some goods and services attract a reduced rate of 5% (e.g. domestic energy, children's car seats) or are zero-rated (e.g. most food, books, children's clothing).</p>
+        <h3>When do tradespeople charge VAT?</h3>
+        <p>You must register for VAT if your VAT-taxable turnover exceeds the current threshold (£90,000 for 2024/25). Once registered, you charge VAT on your services and materials and can reclaim VAT on your business purchases.</p>
+        <h3>How to use this calculator</h3>
+        <p>Enter the amount and select whether you want to add VAT (for quoting a price to a client) or remove VAT (to find the net amount from a VAT-inclusive price). The standard 20% rate is pre-filled — change it if you need to calculate at the reduced 5% rate.</p>
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="calc-cta-bottom">
+      <h3>Quoting clients and calculating tax one job at a time?</h3>
+      <p>Wrencher handles VAT automatically on every quote and invoice — you just enter your prices and it does the maths. Your clients get a professional PDF, you get paid faster.</p>
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary btn-lg" style="background:white;color:var(--slate);">Download Wrencher free — 30 day trial</a>
+      <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.5);">No credit card · Windows 10/11 · Your data stays on your computer</p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner" style="grid-template-columns:2fr 1fr 1fr;">
+      <div><a href="../index.html" class="footer__brand"><img src="../assets/img/logo.png" alt="Wrencher">Wrencher</a><p class="footer__tagline">Business software built for tradespeople, not accountants.</p></div>
+      <div class="footer__col"><h5>Product</h5><ul><li><a href="../features.html">Features</a></li><li><a href="../pricing.html">Pricing</a></li><li><a href="../docs.html">Documentation</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+      <div class="footer__col"><h5>Legal</h5><ul><li><a href="../privacy.html">Privacy policy</a></li><li><a href="../terms.html">Terms of service</a></li><li><a href="../refund.html">Refund policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span class="footer__copy">© 2026 Wrencher. All rights reserved.</span><span class="footer__copy">Made for tradespeople.</span></div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+<script>
+const COUNTRIES = {
+  uk: { sym:'£', name:'VAT', rate:20, label:'UK',
+    info_h: 'VAT rates in the UK',
+    info: '<p>VAT (Value Added Tax) is charged on most goods and services in the UK. The standard rate is <strong>20%</strong>. Some goods and services attract a reduced rate of 5% or are zero-rated.</p><h3>When do tradespeople charge VAT?</h3><p>You must register for VAT if your VAT-taxable turnover exceeds £90,000. Once registered, you charge VAT on your services and materials and can reclaim VAT on your business purchases.</p><h3>How to use this calculator</h3><p>Enter the amount and select whether to add or remove VAT. Change the rate to 5% if you need the reduced rate calculation.</p>' },
+  us: { sym:'$', name:'Sales Tax', rate:0, label:'US',
+    info_h: 'Sales tax in the United States',
+    info: '<p>Sales tax in the US is set at the state and local level — there is no federal sales tax. Rates vary from 0% to over 10% depending on your state and city.</p><h3>Common state sales tax rates</h3><p>California: 7.25% base · Texas: 6.25% · Florida: 6% · New York: 4% base · No sales tax: Oregon, Montana, New Hampshire, Delaware.</p><h3>How to use this calculator</h3><p>Enter your state sales tax rate in the Tax rate field. Your accountant or state revenue authority can confirm the exact rate including local additions.</p>' },
+  ca: { sym:'$', name:'GST/HST', rate:5, label:'CA',
+    info_h: 'GST and HST in Canada',
+    info: '<p>Canada charges GST (Goods and Services Tax) at <strong>5%</strong> federally. Most provinces also charge PST (Provincial Sales Tax), or combine them into HST (Harmonized Sales Tax).</p><h3>Common rates by province</h3><p>Ontario: HST 13% · British Columbia: GST 5% + PST 7% = 12% · Alberta: GST 5% only · Quebec: GST 5% + QST 9.975% · Nova Scotia: HST 15%.</p><h3>How to use this calculator</h3><p>Enter the combined rate for your province. If your province has HST, enter that single rate. If separate GST + PST, add them together.</p>' },
+  au: { sym:'$', name:'GST', rate:10, label:'AU',
+    info_h: 'GST in Australia',
+    info: '<p>GST (Goods and Services Tax) in Australia is charged at a flat <strong>10%</strong> on most goods and services. It applies nationwide with no state variations.</p><h3>When do tradespeople register for GST?</h3><p>You must register for GST if your annual turnover is $75,000 or more ($150,000 for non-profits). Once registered, you charge GST and can claim GST credits on your business expenses.</p><h3>How to use this calculator</h3><p>The rate is pre-set to 10%. Use "Add tax" to calculate the GST-inclusive price for a client, or "Remove tax" to find the GST-exclusive amount from a total that already includes GST.</p>' },
+};
+
+let current = localStorage.getItem('wrencher_country') || 'uk';
+
+function setCountry(code, btn) {
+  current = code;
+  localStorage.setItem('wrencher_country', code);
+  document.querySelectorAll('.country-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const c = COUNTRIES[code];
+  document.querySelectorAll('.lbl-currency').forEach(el => el.textContent = c.sym);
+  document.getElementById('rate').value = c.rate;
+  document.getElementById('info-heading').textContent = c.info_h;
+  document.getElementById('info-body').innerHTML = c.info;
+  calculate();
+}
+
+function fmt(n) {
+  const c = COUNTRIES[current];
+  return c.sym + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function calculate() {
+  const c      = COUNTRIES[current];
+  const amt    = parseFloat(document.getElementById('amount').value) || 0;
+  const rate   = parseFloat(document.getElementById('rate').value) || 0;
+  const mode   = document.querySelector('input[name="mode"]:checked').value;
+  const taxName = c.name + ' (' + rate + '%)';
+  let net, tax, gross;
+
+  if (mode === 'add') {
+    net   = amt;
+    tax   = net * rate / 100;
+    gross = net + tax;
+    document.getElementById('lbl-net').textContent   = 'Net amount (ex. ' + c.name + ')';
+    document.getElementById('lbl-gross').textContent = 'Gross amount (inc. ' + c.name + ')';
+  } else {
+    gross = amt;
+    net   = gross / (1 + rate / 100);
+    tax   = gross - net;
+    document.getElementById('lbl-net').textContent   = 'Net amount (ex. ' + c.name + ')';
+    document.getElementById('lbl-gross').textContent = 'Gross amount entered';
+  }
+
+  document.getElementById('lbl-tax').textContent  = taxName;
+  document.getElementById('res-net').textContent  = amt ? fmt(net)   : '—';
+  document.getElementById('res-tax').textContent  = amt ? fmt(tax)   : '—';
+  document.getElementById('res-gross').textContent = amt ? fmt(gross) : '—';
+}
+
+// Init
+(function() {
+  const saved = localStorage.getItem('wrencher_country') || 'uk';
+  const btn = document.querySelector(`.country-btn[onclick*="'${saved}'"]`);
+  if (btn) setCountry(saved, btn);
+  else calculate();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Mileage Allowance Calculator — HMRC, IRS, CRA, ATO Rates | Wrencher</title>
+  <meta name="description" content="Calculate your approved mileage allowance for tax purposes. HMRC rates for UK (45p/25p per mile), IRS rate for US, CRA rate for Canada, ATO rate for Australia.">
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__brand"><img src="../assets/img/logo.png" alt="Wrencher logo">Wrencher</a>
+    <ul class="nav__links">
+      <li><a href="../index.html">Home</a></li><li><a href="../features.html">Features</a></li>
+      <li><a href="index.html">Tools</a></li><li><a href="../pricing.html">Pricing</a></li>
+      <li><a href="../docs.html">Docs</a></li><li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__cta"><a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary" style="height:40px;padding:0 18px;font-size:14px;">Download free trial</a></div>
+    <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="section__label"><a href="index.html" style="color:var(--blue);text-decoration:none;">Free tools</a> &nbsp;›&nbsp; Mileage calculator</span>
+    <h1>Mileage Allowance Calculator</h1>
+    <p>Calculate your approved mileage allowance using official tax authority rates. UK (HMRC), US (IRS), Canada (CRA), Australia (ATO).</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top:40px;padding-bottom:64px;">
+  <div class="container" style="max-width:760px;">
+
+    <div class="calc-cta-top">
+      <span>Wrencher logs every trip automatically and tracks your mileage total for tax time.</span>
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe">Try it free for 30 days →</a>
+    </div>
+
+    <div class="country-bar">
+      <span>Your country:</span>
+      <button class="country-btn active" onclick="setCountry('uk',this)">🇬🇧 UK</button>
+      <button class="country-btn" onclick="setCountry('us',this)">🇺🇸 US</button>
+      <button class="country-btn" onclick="setCountry('ca',this)">🇨🇦 Canada</button>
+      <button class="country-btn" onclick="setCountry('au',this)">🇦🇺 Australia</button>
+    </div>
+
+    <div style="margin-bottom:20px;padding:14px 16px;background:var(--paper);border:1px solid var(--rule);border-radius:8px;font-size:14px;color:var(--steel);" id="rate-info">
+      🇬🇧 <strong>HMRC approved rate:</strong> 45p per mile for the first 10,000 miles, 25p per mile after.
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label id="lbl-distance">Miles driven this year</label>
+          <input type="number" id="miles" placeholder="0" min="0" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label id="lbl-threshold">Threshold (<span id="lbl-unit">miles</span>)</label>
+          <input type="number" id="threshold" value="10000" min="0" readonly style="background:var(--paper);color:var(--steel);">
+        </div>
+        <div class="calc-field">
+          <label id="lbl-rate1">Rate — first <span id="lbl-t1">10,000 miles</span></label>
+          <input type="number" id="rate1" value="0.45" min="0" step="0.001" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label id="lbl-rate2">Rate — above threshold</label>
+          <input type="number" id="rate2" value="0.25" min="0" step="0.001" oninput="calculate()">
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-result">
+      <h3>Mileage allowance</h3>
+      <div class="result-row" id="row-tier1">
+        <span id="lbl-tier1">First 10,000 miles @ 45p</span>
+        <span class="result-val" id="res-tier1">—</span>
+      </div>
+      <div class="result-row" id="row-tier2" style="display:none;">
+        <span id="lbl-tier2">Remaining miles @ 25p</span>
+        <span class="result-val" id="res-tier2">—</span>
+      </div>
+      <div class="result-row total">
+        <span>Total allowance</span>
+        <span class="result-val" id="res-total">—</span>
+      </div>
+    </div>
+
+    <div class="docs__section" style="margin-top:40px;">
+      <h2 id="info-h">HMRC mileage allowance — UK</h2>
+      <div id="info-body">
+        <p>HMRC allows self-employed people to claim a fixed rate for business miles driven in their own vehicle, instead of claiming actual vehicle costs. This is called the Approved Mileage Allowance Payment (AMAP).</p>
+        <h3>Current HMRC rates (2024/25)</h3>
+        <p><strong>Cars and vans:</strong> 45p per mile for the first 10,000 business miles in the tax year, 25p per mile for every mile above 10,000.</p>
+        <p><strong>Motorcycles:</strong> 24p per mile (flat rate, no threshold).</p>
+        <p><strong>Bicycles:</strong> 20p per mile (flat rate).</p>
+        <h3>What counts as a business mile?</h3>
+        <p>Any journey made for business purposes — travelling to a client site, visiting a supplier, attending a training course. Commuting from home to a regular fixed place of work does not count. For most tradespeople who travel to different job sites each day, the journey from home to each site is a business mile.</p>
+        <h3>Do you have to use the AMAP rate?</h3>
+        <p>No — you can instead claim your actual vehicle expenses (fuel, insurance, servicing, depreciation) on a proportional basis. The AMAP rate is simpler and often more beneficial for tradespeople who drive a lot in efficient vehicles.</p>
+      </div>
+    </div>
+
+    <div class="calc-cta-bottom">
+      <h3>Logging mileage in a notebook? There is a better way.</h3>
+      <p>Wrencher has a built-in mileage log. Add a trip in seconds, link it to a job, and at the end of the year export a clean CSV for your accountant — every mile accounted for, nothing missed.</p>
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary btn-lg" style="background:white;color:var(--slate);">Download Wrencher free — 30 day trial</a>
+      <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.5);">No credit card · Windows 10/11 · Your data stays on your computer</p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner" style="grid-template-columns:2fr 1fr 1fr;">
+      <div><a href="../index.html" class="footer__brand"><img src="../assets/img/logo.png" alt="Wrencher">Wrencher</a><p class="footer__tagline">Business software built for tradespeople, not accountants.</p></div>
+      <div class="footer__col"><h5>Product</h5><ul><li><a href="../features.html">Features</a></li><li><a href="../pricing.html">Pricing</a></li><li><a href="../docs.html">Documentation</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+      <div class="footer__col"><h5>Legal</h5><ul><li><a href="../privacy.html">Privacy policy</a></li><li><a href="../terms.html">Terms of service</a></li><li><a href="../refund.html">Refund policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span class="footer__copy">© 2026 Wrencher. All rights reserved.</span><span class="footer__copy">Made for tradespeople.</span></div>
+  </div>
+</footer>
+<script src="../assets/js/main.js"></script>
+<script>
+const CONFIG = {
+  uk: {
+    sym:'£', unit:'miles', threshold:10000,
+    rate1:0.45, rate2:0.25,
+    rateInfo:'🇬🇧 <strong>HMRC approved rate:</strong> 45p per mile for the first 10,000 miles, 25p per mile after.',
+    info_h: 'HMRC mileage allowance — UK',
+    info: '<p>HMRC allows self-employed people to claim a fixed rate for business miles driven in their own vehicle instead of claiming actual vehicle costs.</p><h3>Current HMRC rates (2024/25)</h3><p><strong>Cars and vans:</strong> 45p per mile for the first 10,000 miles, 25p per mile after. <strong>Motorcycles:</strong> 24p per mile. <strong>Bicycles:</strong> 20p per mile.</p><h3>What counts as a business mile?</h3><p>Any journey made for business purposes — travelling to a client site, visiting a supplier. For tradespeople who travel to different sites, the journey from home to each site is a business mile.</p>',
+  },
+  us: {
+    sym:'$', unit:'miles', threshold:0,
+    rate1:0.67, rate2:0.67,
+    rateInfo:'🇺🇸 <strong>IRS standard mileage rate (2024):</strong> 67 cents per mile for business use.',
+    info_h: 'IRS mileage rate — United States',
+    info: '<p>The IRS sets a standard mileage rate each year for calculating the deductible cost of operating a vehicle for business purposes. For 2024, the rate is <strong>67 cents per mile</strong>.</p><h3>How to claim</h3><p>Track your business miles during the year. Multiply total business miles by the IRS rate to get your deductible amount. Keep a mileage log with date, destination, purpose, and miles driven for each trip.</p><h3>Standard rate vs actual expenses</h3><p>You can choose to deduct actual vehicle expenses (gas, insurance, depreciation) instead. Most self-employed tradespeople find the standard rate simpler and comparable in value.</p>',
+  },
+  ca: {
+    sym:'$', unit:'km', threshold:5000,
+    rate1:0.70, rate2:0.64,
+    rateInfo:'🇨🇦 <strong>CRA rate (2024):</strong> 70¢ per km for the first 5,000 km, 64¢ per km after.',
+    info_h: 'CRA mileage rate — Canada',
+    info: '<p>The Canada Revenue Agency (CRA) sets per-kilometre rates for calculating vehicle expenses for self-employed individuals. For 2024, the rate is <strong>70¢/km for the first 5,000 km</strong> and <strong>64¢/km after that</strong>.</p><h3>Quebec residents</h3><p>Rates are slightly different for residents of Quebec — check the CRA website for the current Quebec-specific rates.</p><h3>Record keeping</h3><p>Keep a logbook recording the date, destination, purpose, and kilometres driven for each business trip. The CRA may request this if you are audited.</p>',
+  },
+  au: {
+    sym:'$', unit:'km', threshold:0,
+    rate1:0.85, rate2:0.85,
+    rateInfo:'🇦🇺 <strong>ATO rate (2023/24):</strong> 85 cents per kilometre for business use.',
+    info_h: 'ATO mileage rate — Australia',
+    info: '<p>The Australian Taxation Office (ATO) sets a cents per kilometre rate for claiming vehicle expenses. For 2023/24, the rate is <strong>85 cents per kilometre</strong>.</p><h3>The cents per km method</h3><p>You can claim up to 5,000 business kilometres per year using this method — no receipts required, but you need to be able to show how you calculated your business kilometres.</p><h3>Logbook method</h3><p>If you drive more than 5,000 business km per year, the logbook method usually gives a higher deduction. This involves keeping a 12-week logbook to establish your business use percentage.</p>',
+  },
+};
+let current = localStorage.getItem('wrencher_country') || 'uk';
+
+function setCountry(code, btn) {
+  current = code;
+  localStorage.setItem('wrencher_country', code);
+  document.querySelectorAll('.country-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const c = CONFIG[code];
+  document.getElementById('rate-info').innerHTML = c.rateInfo;
+  document.getElementById('rate1').value = c.rate1;
+  document.getElementById('rate2').value = c.rate2;
+  document.getElementById('threshold').value = c.threshold;
+  const unit = c.unit;
+  document.getElementById('lbl-unit').textContent = unit;
+  document.getElementById('lbl-distance').textContent = unit.charAt(0).toUpperCase() + unit.slice(1) + ' driven this year';
+  document.getElementById('lbl-threshold').textContent = 'Threshold (' + unit + ')';
+  document.getElementById('lbl-rate1').innerHTML = 'Rate — first <span id="lbl-t1">' + (c.threshold > 0 ? c.threshold.toLocaleString() + ' ' + unit : 'all ' + unit) + '</span>';
+  document.getElementById('info-h').textContent = c.info_h;
+  document.getElementById('info-body').innerHTML = c.info;
+  if (c.threshold === 0) {
+    document.getElementById('row-tier2').style.display = 'none';
+  }
+  calculate();
+}
+
+function fmt(n) { return CONFIG[current].sym + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,','); }
+
+function calculate() {
+  const c   = CONFIG[current];
+  const dist = parseFloat(document.getElementById('miles').value) || 0;
+  const r1  = parseFloat(document.getElementById('rate1').value) || 0;
+  const r2  = parseFloat(document.getElementById('rate2').value) || 0;
+  const thr = c.threshold;
+  let t1, t2, total;
+  if (thr > 0 && dist > thr) {
+    t1 = thr * r1;
+    t2 = (dist - thr) * r2;
+    document.getElementById('row-tier2').style.display = '';
+    document.getElementById('lbl-tier1').textContent = 'First ' + thr.toLocaleString() + ' ' + c.unit + ' @ ' + (r1*100).toFixed(0) + 'p';
+    document.getElementById('lbl-tier2').textContent = 'Remaining ' + (dist - thr).toLocaleString() + ' ' + c.unit + ' @ ' + (r2*100).toFixed(0) + 'p';
+    document.getElementById('res-tier1').textContent = dist ? fmt(t1) : '—';
+    document.getElementById('res-tier2').textContent = dist ? fmt(t2) : '—';
+  } else {
+    t1 = dist * r1;
+    t2 = 0;
+    document.getElementById('row-tier2').style.display = 'none';
+    document.getElementById('res-tier1').textContent = dist ? fmt(t1) : '—';
+  }
+  total = t1 + t2;
+  document.getElementById('res-total').textContent = dist ? fmt(total) : '—';
+}
+
+(function() {
+  const saved = localStorage.getItem('wrencher_country') || 'uk';
+  const btn = document.querySelector(`.country-btn[onclick*="'${saved}'"]`);
+  if (btn) setCountry(saved, btn);
+  else calculate();
+})();
+</script>
+</body>
+</html>

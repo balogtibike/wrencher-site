@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Job Profitability Calculator for Tradespeople | Wrencher</title>
+  <meta name="description" content="Find out how much a job actually made. Enter your quote value, labour hours, materials and overhead to see your real profit margin and hourly earnings.">
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__brand"><img src="../assets/img/logo.png" alt="Wrencher logo">Wrencher</a>
+    <ul class="nav__links">
+      <li><a href="../index.html">Home</a></li><li><a href="../features.html">Features</a></li>
+      <li><a href="index.html">Tools</a></li><li><a href="../pricing.html">Pricing</a></li>
+      <li><a href="../docs.html">Docs</a></li><li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__cta"><a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary" style="height:40px;padding:0 18px;font-size:14px;">Download free trial</a></div>
+    <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="section__label"><a href="index.html" style="color:var(--blue);text-decoration:none;">Free tools</a> &nbsp;›&nbsp; Job profitability calculator</span>
+    <h1>Job Profitability Calculator</h1>
+    <p>Enter your invoice value, labour, and costs to find out what a job actually earned you — per hour, and as a margin.</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top:40px;padding-bottom:64px;">
+  <div class="container" style="max-width:760px;">
+
+    <div class="calc-cta-top">
+      <span>Wrencher shows job profitability automatically across every job you run — no calculator needed.</span>
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe">Try it free for 30 days →</a>
+    </div>
+
+    <div class="country-bar">
+      <span>Currency:</span>
+      <button class="country-btn active" onclick="setCountry('uk',this)">🇬🇧 £ GBP</button>
+      <button class="country-btn" onclick="setCountry('us',this)">🇺🇸 $ USD</button>
+      <button class="country-btn" onclick="setCountry('ca',this)">🇨🇦 $ CAD</button>
+      <button class="country-btn" onclick="setCountry('au',this)">🇦🇺 $ AUD</button>
+    </div>
+
+    <div class="calc-card">
+      <h3 style="margin-bottom:20px;font-size:16px;">Job income</h3>
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>Invoice amount (ex. tax) (<span class="lbl-currency">£</span>)</label>
+          <input type="number" id="invoice" placeholder="0.00" min="0" step="0.01" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Deposit already received (<span class="lbl-currency">£</span>)</label>
+          <input type="number" id="deposit" placeholder="0.00" min="0" step="0.01" oninput="calculate()">
+        </div>
+      </div>
+
+      <h3 style="margin-bottom:20px;font-size:16px;">Labour costs</h3>
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>Hours worked on this job</label>
+          <input type="number" id="hours" placeholder="0" min="0" step="0.5" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Your labour cost per hour (<span class="lbl-currency">£</span>)</label>
+          <input type="number" id="labourrate" placeholder="0.00" min="0" step="0.01" oninput="calculate()">
+        </div>
+      </div>
+
+      <h3 style="margin-bottom:20px;font-size:16px;">Direct job costs (<span class="lbl-currency">£</span>)</h3>
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>Materials &amp; supplies</label>
+          <input type="number" id="materials" placeholder="0.00" min="0" step="0.01" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Subcontractor costs</label>
+          <input type="number" id="sub" placeholder="0.00" min="0" step="0.01" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Travel &amp; mileage</label>
+          <input type="number" id="travel" placeholder="0.00" min="0" step="0.01" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Other direct costs</label>
+          <input type="number" id="other" placeholder="0.00" min="0" step="0.01" oninput="calculate()">
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-result">
+      <h3>Job profitability</h3>
+      <div class="result-row"><span>Invoice total</span><span class="result-val" id="r-invoice">—</span></div>
+      <div class="result-row"><span>Total labour cost</span><span class="result-val" id="r-labour">—</span></div>
+      <div class="result-row"><span>Total direct costs</span><span class="result-val" id="r-costs">—</span></div>
+      <div class="result-row"><span>Total job cost</span><span class="result-val" id="r-total-cost">—</span></div>
+      <div class="result-row total"><span>Gross profit</span><span class="result-val" id="r-profit">—</span></div>
+      <div class="result-row total"><span>Profit margin</span><span class="result-val" id="r-margin">—</span></div>
+      <div class="result-row total"><span>Effective hourly rate</span><span class="result-val" id="r-hourly">—</span></div>
+    </div>
+
+    <div id="profit-msg" style="display:none;margin-top:16px;padding:14px 16px;border-radius:8px;font-size:13px;"></div>
+
+    <div class="docs__section" style="margin-top:40px;">
+      <h2>Why track job profitability?</h2>
+      <p>Most tradespeople have a rough sense of whether a job went well — but very few know their actual profit margin per job. Without this number, you cannot tell which types of work are worth taking, which clients cost you money, or whether your pricing is keeping pace with your costs.</p>
+      <h3>The jobs that look busy but leave you broke</h3>
+      <p>A full diary does not mean a profitable business. A tradesperson charging £500 a day but spending £350 on labour, materials, and travel is making a 30% margin — fine. But if that same job takes twice as long as quoted, the margin collapses to nothing. Tracking profitability per job reveals these patterns.</p>
+      <h3>What is a good profit margin for tradespeople?</h3>
+      <p>As a rough guide: below 20% is thin and leaves little room for error. 20–35% is healthy. Above 35% is strong. These are gross margins — they do not account for your overhead and business running costs, which typically add another 10–20% to what you need to cover.</p>
+    </div>
+
+    <div class="calc-cta-bottom">
+      <h3>Some jobs earn. Some drain. Do you know which is which?</h3>
+      <p>Wrencher tracks quote vs invoice on every job so you can see at a glance where your profit is coming from — and stop taking the jobs that are costing you money.</p>
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary btn-lg" style="background:white;color:var(--slate);">Download Wrencher free — 30 day trial</a>
+      <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.5);">No credit card · Windows 10/11 · Your data stays on your computer</p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner" style="grid-template-columns:2fr 1fr 1fr;">
+      <div><a href="../index.html" class="footer__brand"><img src="../assets/img/logo.png" alt="Wrencher">Wrencher</a><p class="footer__tagline">Business software built for tradespeople, not accountants.</p></div>
+      <div class="footer__col"><h5>Product</h5><ul><li><a href="../features.html">Features</a></li><li><a href="../pricing.html">Pricing</a></li><li><a href="../docs.html">Documentation</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+      <div class="footer__col"><h5>Legal</h5><ul><li><a href="../privacy.html">Privacy policy</a></li><li><a href="../terms.html">Terms of service</a></li><li><a href="../refund.html">Refund policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span class="footer__copy">© 2026 Wrencher. All rights reserved.</span><span class="footer__copy">Made for tradespeople.</span></div>
+  </div>
+</footer>
+<script src="../assets/js/main.js"></script>
+<script>
+const SYMS = { uk:'£', us:'$', ca:'$', au:'$' };
+let current = localStorage.getItem('wrencher_country') || 'uk';
+
+function setCountry(code, btn) {
+  current = code;
+  localStorage.setItem('wrencher_country', code);
+  document.querySelectorAll('.country-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.lbl-currency').forEach(el => el.textContent = SYMS[code]);
+  calculate();
+}
+
+function fmt(n) { return SYMS[current] + Math.abs(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,','); }
+
+function calculate() {
+  const invoice   = parseFloat(document.getElementById('invoice').value)    || 0;
+  const hours     = parseFloat(document.getElementById('hours').value)      || 0;
+  const lrate     = parseFloat(document.getElementById('labourrate').value) || 0;
+  const materials = parseFloat(document.getElementById('materials').value)  || 0;
+  const sub       = parseFloat(document.getElementById('sub').value)        || 0;
+  const travel    = parseFloat(document.getElementById('travel').value)     || 0;
+  const other     = parseFloat(document.getElementById('other').value)      || 0;
+
+  const labour     = hours * lrate;
+  const directCost = materials + sub + travel + other;
+  const totalCost  = labour + directCost;
+  const profit     = invoice - totalCost;
+  const margin     = invoice > 0 ? (profit / invoice * 100) : 0;
+  const hourly     = hours > 0 ? profit / hours : 0;
+
+  const hasVal = invoice > 0;
+  document.getElementById('r-invoice').textContent    = hasVal ? fmt(invoice)   : '—';
+  document.getElementById('r-labour').textContent     = hasVal ? fmt(labour)    : '—';
+  document.getElementById('r-costs').textContent      = hasVal ? fmt(directCost): '—';
+  document.getElementById('r-total-cost').textContent = hasVal ? fmt(totalCost) : '—';
+  document.getElementById('r-profit').textContent     = hasVal ? (profit < 0 ? '-' : '') + fmt(profit) : '—';
+  document.getElementById('r-margin').textContent     = hasVal ? margin.toFixed(1) + '%' : '—';
+  document.getElementById('r-hourly').textContent     = hasVal && hours > 0 ? fmt(hourly) + '/hr' : '—';
+
+  // Feedback message
+  const msg = document.getElementById('profit-msg');
+  if (hasVal) {
+    msg.style.display = '';
+    if (profit < 0) {
+      msg.style.background = '#fef2f2'; msg.style.color = '#dc2626';
+      msg.innerHTML = '⚠️ <strong>This job lost money.</strong> Your costs exceed your invoice by ' + fmt(Math.abs(profit)) + '. Review your labour estimate or pricing for similar jobs.';
+    } else if (margin < 20) {
+      msg.style.background = '#fffbeb'; msg.style.color = '#854d0e';
+      msg.innerHTML = '⚠️ <strong>Thin margin.</strong> Under 20% leaves little room for unexpected costs. Consider whether your pricing reflects the real effort and risk.';
+    } else if (margin >= 35) {
+      msg.style.background = '#f0fdf4'; msg.style.color = '#166534';
+      msg.innerHTML = '✓ <strong>Strong margin.</strong> ' + margin.toFixed(1) + '% is a healthy, sustainable profit for this job.';
+    } else {
+      msg.style.background = '#f0fdf4'; msg.style.color = '#166534';
+      msg.innerHTML = '✓ <strong>Healthy margin.</strong> ' + margin.toFixed(1) + '% is a solid profit for this type of work.';
+    }
+  } else {
+    msg.style.display = 'none';
+  }
+}
+
+(function() {
+  const saved = localStorage.getItem('wrencher_country') || 'uk';
+  const btn = document.querySelector(`.country-btn[onclick*="'${saved}'"]`);
+  if (btn) setCountry(saved, btn);
+})();
+</script>
+</body>
+</html>

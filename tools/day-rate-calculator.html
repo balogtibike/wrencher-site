@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Day Rate & Hourly Rate Calculator for Tradespeople — UK, US, Canada, Australia | Wrencher</title>
+  <meta name="description" content="Calculate your day rate or hourly rate as a self-employed tradesperson. Accounts for holidays, sick days, overhead costs, tools, insurance, and desired take-home pay.">
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__brand"><img src="../assets/img/logo.png" alt="Wrencher logo">Wrencher</a>
+    <ul class="nav__links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../features.html">Features</a></li>
+      <li><a href="index.html">Tools</a></li>
+      <li><a href="../pricing.html">Pricing</a></li>
+      <li><a href="../docs.html">Docs</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__cta">
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary" style="height:40px;padding:0 18px;font-size:14px;">Download free trial</a>
+    </div>
+    <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="section__label"><a href="index.html" style="color:var(--blue);text-decoration:none;">Free tools</a> &nbsp;›&nbsp; Day rate calculator</span>
+    <h1>Day Rate &amp; Hourly Rate Calculator</h1>
+    <p>Work out exactly what you need to charge to hit your income goals — after holidays, sick days, taxes, and overheads.</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top:40px;padding-bottom:64px;">
+  <div class="container" style="max-width:760px;">
+
+    <div class="calc-cta-top">
+      <span>Know your rate — then quote it confidently every time with Wrencher.</span>
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe">Try it free for 30 days →</a>
+    </div>
+
+    <div class="country-bar">
+      <span>Your country:</span>
+      <button class="country-btn active" onclick="setCountry('uk',this)">🇬🇧 UK</button>
+      <button class="country-btn" onclick="setCountry('us',this)">🇺🇸 US</button>
+      <button class="country-btn" onclick="setCountry('ca',this)">🇨🇦 Canada</button>
+      <button class="country-btn" onclick="setCountry('au',this)">🇦🇺 Australia</button>
+    </div>
+
+    <div class="calc-card">
+      <h3 style="margin-bottom:20px;font-size:16px;">Your income goal</h3>
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>Desired annual take-home pay (<span class="lbl-currency">£</span>)</label>
+          <input type="number" id="takehome" value="40000" min="0" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Hours worked per day</label>
+          <input type="number" id="hours" value="8" min="1" max="16" step="0.5" oninput="calculate()">
+        </div>
+      </div>
+
+      <h3 style="margin-bottom:20px;font-size:16px;">Working days</h3>
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>Working weeks per year</label>
+          <input type="number" id="weeks" value="47" min="1" max="52" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Working days per week</label>
+          <input type="number" id="daysperweek" value="5" min="1" max="7" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Holiday days per year</label>
+          <input type="number" id="holidays" value="20" min="0" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Sick / non-billable days estimate</label>
+          <input type="number" id="sick" value="5" min="0" oninput="calculate()">
+        </div>
+      </div>
+
+      <h3 style="margin-bottom:20px;font-size:16px;">Annual overhead costs (<span class="lbl-currency">£</span>)</h3>
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>Van / vehicle costs</label>
+          <input type="number" id="vehicle" value="4000" min="0" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Tools &amp; equipment</label>
+          <input type="number" id="tools" value="1500" min="0" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Insurance (public liability, etc.)</label>
+          <input type="number" id="insurance" value="800" min="0" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Other overhead (phone, software, etc.)</label>
+          <input type="number" id="other" value="600" min="0" oninput="calculate()">
+        </div>
+      </div>
+
+      <h3 style="margin-bottom:20px;font-size:16px;">Tax</h3>
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>Estimated tax rate on income (%)</label>
+          <input type="number" id="taxrate" value="25" min="0" max="60" oninput="calculate()">
+        </div>
+        <div class="calc-field">
+          <label>Non-billable time (% of working days)</label>
+          <input type="number" id="nonbillable" value="15" min="0" max="80" oninput="calculate()">
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-result">
+      <h3>Your rates</h3>
+      <div class="result-row">
+        <span>Billable days per year</span>
+        <span class="result-val" id="res-days">—</span>
+      </div>
+      <div class="result-row">
+        <span>Total annual overhead costs</span>
+        <span class="result-val" id="res-overhead">—</span>
+      </div>
+      <div class="result-row">
+        <span>Pre-tax income needed (take-home + tax)</span>
+        <span class="result-val" id="res-pretax">—</span>
+      </div>
+      <div class="result-row">
+        <span>Total annual revenue needed</span>
+        <span class="result-val" id="res-revenue">—</span>
+      </div>
+      <div class="result-row total">
+        <span>Your minimum day rate</span>
+        <span class="result-val" id="res-day">—</span>
+      </div>
+      <div class="result-row total">
+        <span>Your minimum hourly rate</span>
+        <span class="result-val" id="res-hour">—</span>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;padding:14px 16px;background:#eff6ff;border-radius:8px;font-size:13px;color:#1e40af;">
+      💡 <strong>These are minimum rates.</strong> Add 15–25% on top to account for slow periods, business growth, and profit. The figures above are break-even rates — what you need to charge just to hit your take-home goal.
+    </div>
+
+    <div class="docs__section" style="margin-top:40px;">
+      <h2>How to calculate your day rate</h2>
+      <p>Many tradespeople undercharge because they calculate their day rate based on what they want to earn divided by working days — without accounting for the days they are not earning (holidays, sick, admin, quoting) or the costs of running their business.</p>
+      <h3>The formula</h3>
+      <p>Start with your desired take-home pay. Gross it up for tax to get the pre-tax income you need. Add all your overhead costs. Divide by the number of billable days you actually work in a year (not total working days). The result is your minimum day rate.</p>
+      <h3>Non-billable time</h3>
+      <p>Not every working hour is a billable hour. Time spent quoting, driving to suppliers, doing admin, waiting for materials — none of this earns directly. The typical tradesperson loses 15–20% of their working time to non-billable activities. This calculator accounts for that.</p>
+    </div>
+
+    <div class="calc-cta-bottom">
+      <h3>Know your rate. Quote it right. Get paid on time.</h3>
+      <p>Wrencher helps you build professional quotes using your calculated rate, track every job, and make sure every invoice gets paid — so your real earnings match your target.</p>
+      <a href="https://github.com/balogtibike/wrencher/releases/latest/download/WrencherSetup.exe" class="btn btn-primary btn-lg" style="background:white;color:var(--slate);">Download Wrencher free — 30 day trial</a>
+      <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.5);">No credit card · Windows 10/11 · Your data stays on your computer</p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner" style="grid-template-columns:2fr 1fr 1fr;">
+      <div><a href="../index.html" class="footer__brand"><img src="../assets/img/logo.png" alt="Wrencher">Wrencher</a><p class="footer__tagline">Business software built for tradespeople, not accountants.</p></div>
+      <div class="footer__col"><h5>Product</h5><ul><li><a href="../features.html">Features</a></li><li><a href="../pricing.html">Pricing</a></li><li><a href="../docs.html">Documentation</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+      <div class="footer__col"><h5>Legal</h5><ul><li><a href="../privacy.html">Privacy policy</a></li><li><a href="../terms.html">Terms of service</a></li><li><a href="../refund.html">Refund policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span class="footer__copy">© 2026 Wrencher. All rights reserved.</span><span class="footer__copy">Made for tradespeople.</span></div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+<script>
+const COUNTRIES = {
+  uk: { sym:'£' }, us: { sym:'$' }, ca: { sym:'$' }, au: { sym:'$' }
+};
+let current = localStorage.getItem('wrencher_country') || 'uk';
+
+function setCountry(code, btn) {
+  current = code;
+  localStorage.setItem('wrencher_country', code);
+  document.querySelectorAll('.country-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.lbl-currency').forEach(el => el.textContent = COUNTRIES[code].sym);
+  calculate();
+}
+
+function fmt(n) {
+  const sym = COUNTRIES[current].sym;
+  return sym + Math.round(n).toLocaleString();
+}
+
+function calculate() {
+  const takehome    = parseFloat(document.getElementById('takehome').value)    || 0;
+  const hours       = parseFloat(document.getElementById('hours').value)       || 8;
+  const weeks       = parseFloat(document.getElementById('weeks').value)       || 47;
+  const dpw         = parseFloat(document.getElementById('daysperweek').value) || 5;
+  const holidays    = parseFloat(document.getElementById('holidays').value)    || 0;
+  const sick        = parseFloat(document.getElementById('sick').value)        || 0;
+  const vehicle     = parseFloat(document.getElementById('vehicle').value)     || 0;
+  const tools       = parseFloat(document.getElementById('tools').value)       || 0;
+  const insurance   = parseFloat(document.getElementById('insurance').value)   || 0;
+  const other       = parseFloat(document.getElementById('other').value)       || 0;
+  const taxrate     = parseFloat(document.getElementById('taxrate').value)     || 0;
+  const nonbillable = parseFloat(document.getElementById('nonbillable').value) || 0;
+
+  const totalWorkingDays = weeks * dpw;
+  const availableDays    = totalWorkingDays - holidays - sick;
+  const billableDays     = availableDays * (1 - nonbillable / 100);
+  const overhead         = vehicle + tools + insurance + other;
+  const pretax           = takehome / (1 - taxrate / 100);
+  const totalRevenue     = pretax + overhead;
+  const dayRate          = billableDays > 0 ? totalRevenue / billableDays : 0;
+  const hourRate         = hours > 0 ? dayRate / hours : 0;
+
+  document.getElementById('res-days').textContent    = Math.round(billableDays) + ' days';
+  document.getElementById('res-overhead').textContent = fmt(overhead);
+  document.getElementById('res-pretax').textContent  = fmt(pretax);
+  document.getElementById('res-revenue').textContent = fmt(totalRevenue);
+  document.getElementById('res-day').textContent     = fmt(dayRate);
+  document.getElementById('res-hour').textContent    = fmt(hourRate) + '/hr';
+}
+
+(function() {
+  const saved = localStorage.getItem('wrencher_country') || 'uk';
+  const btn = document.querySelector(`.country-btn[onclick*="'${saved}'"]`);
+  if (btn) setCountry(saved, btn);
+  else calculate();
+})();
+</script>
+</body>
+</html>
