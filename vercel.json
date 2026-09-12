@@ -1,7 +1,1 @@
-{
-  "functions": {
-    "api/paddle-webhook.py": {
-      "runtime": "vercel-python@4"
-    }
-  }
-}
+{}
