@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/paddle-webhook.py": {
+      "runtime": "python3.12"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/paddle-webhook",
+      "dest": "/api/paddle-webhook.py"
+    }
+  ]
+}
