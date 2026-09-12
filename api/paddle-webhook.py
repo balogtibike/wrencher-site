@@ -168,6 +168,9 @@ def send_license_email(to_email: str, license_key: str, license_type: str) -> bo
     except urllib.error.HTTPError as e:
         body = e.read().decode("utf-8", errors="ignore")
         print(f"Resend error {e.code}: {body}")
+        print(f"Resend FROM: {FROM_EMAIL}")
+        print(f"Resend TO: {to_email}")
+        print(f"Resend API key prefix: {RESEND_API_KEY[:8] if RESEND_API_KEY else 'MISSING'}")
         return False
     except Exception as e:
         print(f"Resend exception: {e}")
