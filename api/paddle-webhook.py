@@ -30,23 +30,23 @@ SUPPORT    = "hello@wrencher.app"
 
 # ── HMAC key generation ────────────────────────────────────────────────
 
-def generate_license_key(email: str, license_type: str, transaction_id: str) -> str:
+def generate_license_key(license_type: str, transaction_id: str) -> str:
     """
     Generate a deterministic HMAC license key.
-    Format: XXXX-XXXX-XXXX-XXXX-XXXX (25 chars, 5 groups of 5)
-    Inputs: email + license_type + transaction_id
+    Format: WA-XXXXX-XXXXX-XXXXX-XXXXX (Annual)
+            WL-XXXXX-XXXXX-XXXXX-XXXXX (Lifetime)
+    The prefix encodes the license type for offline validation.
+    HMAC input: transaction_id only (unique per purchase).
     """
-    payload = f"{email}:{license_type}:{transaction_id}".lower()
+    prefix = "WA" if license_type == "annual" else "WL"
     raw = hmac.new(
         HMAC_SECRET.encode("utf-8"),
-        payload.encode("utf-8"),
+        transaction_id.lower().encode("utf-8"),
         hashlib.sha256
     ).hexdigest().upper()
-
-    # Take first 20 hex chars and format as XXXX-XXXX-XXXX-XXXX-XXXX
     chars = raw[:20]
-    key = "-".join(chars[i:i+5] for i in range(0, 20, 5))
-    return key
+    body = "-".join(chars[i:i+5] for i in range(0, 20, 5))
+    return f"{prefix}-{body}"
 
 
 # ── Paddle signature verification ─────────────────────────────────────
@@ -238,7 +238,7 @@ class handler(BaseHTTPRequestHandler):
             return
 
         # Generate and send license key
-        license_key = generate_license_key(email, license_type, transaction_id)
+        license_key = generate_license_key(license_type, transaction_id)
         print(f"Generated {license_type} key for {email}: {license_key}")
 
         success = send_license_email(email, license_key, license_type)
