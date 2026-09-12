@@ -206,18 +206,16 @@ class handler(BaseHTTPRequestHandler):
         # Extract transaction details
         data           = event.get("data", {})
         transaction_id = data.get("id", "")
-        customer       = data.get("customer", {})
-        email          = customer.get("email", "")
+        customer_id    = data.get("customer_id", "")
+
+        # Paddle Billing puts customer_id in the transaction, not the email.
+        # We need to call the Paddle API to get the customer email.
+        email = ""
+        if customer_id:
+            email = self._get_customer_email(customer_id)
 
         if not email:
-            # Try alternate path
-            email = (
-                data.get("billing_details", {})
-                    .get("email", "")
-            )
-
-        if not email:
-            print("No customer email in webhook payload")
+            print(f"Could not get email for customer {customer_id}")
             self._respond(200, {"ok": True, "note": "no email"})
             return
 
@@ -250,6 +248,29 @@ class handler(BaseHTTPRequestHandler):
             # (retries would send duplicate keys)
             self._respond(200, {"ok": True, "key_sent": False,
                                 "error": "email delivery failed"})
+
+    def _get_customer_email(self, customer_id: str) -> str:
+        """Fetch customer email from Paddle API."""
+        import os as _os
+        # Use server-side API key from environment
+        api_key = _os.environ.get("PADDLE_API_KEY", "")
+        if not api_key:
+            # Fall back to client token for read operations
+            api_key = "live_f1109cbc87e7e333981ada723f"
+
+        url = f"https://api.paddle.com/customers/{customer_id}"
+        req = urllib.request.Request(url)
+        req.add_header("Authorization", f"Bearer {api_key}")
+        req.add_header("Content-Type", "application/json")
+        try:
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                result = json.loads(resp.read().decode("utf-8"))
+                email = result.get("data", {}).get("email", "")
+                print(f"Customer email fetched: {email}")
+                return email
+        except Exception as e:
+            print(f"Failed to fetch customer email: {e}")
+            return ""
 
     def do_GET(self):
         """Health check endpoint."""
