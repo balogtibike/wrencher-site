@@ -159,6 +159,7 @@ def send_license_email(to_email: str, license_key: str, license_type: str) -> bo
     )
     req.add_header("Authorization", f"Bearer {RESEND_API_KEY}")
     req.add_header("Content-Type", "application/json")
+    req.add_header("User-Agent", "wrencher-webhook/1.0")
 
     try:
         with urllib.request.urlopen(req, timeout=10) as resp:
